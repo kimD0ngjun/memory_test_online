@@ -1,0 +1,20 @@
+package com.example.mini_project.global.auth.exception;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
+@Component
+public class JwtAccessDenyHandler implements AccessDeniedHandler {
+
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException, IOException {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        request.getRequestDispatcher("/mini/user/login").forward(request, response);
+    }
+}
