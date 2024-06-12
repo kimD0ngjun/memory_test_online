@@ -6,7 +6,6 @@ import com.example.mini_project.domain.entity.UserDetailsImpl;
 import com.example.mini_project.domain.entity.UserRoleEnum;
 import com.example.mini_project.domain.repository.UserRepository;
 import com.example.mini_project.global.auth.entity.TokenPayload;
-import com.example.mini_project.global.auth.entity.TokenType;
 import com.example.mini_project.global.exception.DuplicationException;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
 import com.example.mini_project.global.redis.utils.RedisUtils;
@@ -80,7 +79,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 () ->  new ResourceNotFoundException("데이터베이스의 이메일 정보와 서버의 이메일 정보가 다름.")
         );
 
-        if (redisUtils.getData(username) != null) {
+        if (redisUtils.getRefreshToken(username) != null) {
             throw new DuplicationException("이미 로그인되어있는 사용자! 공격자 확인 요망");
         }
 
@@ -89,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("초기 리프레쉬토큰: " + refreshTokenValue);
 
         // username(email) - refreshToken 덮어씌우기 저장
-        redisUtils.setData(username, refreshTokenValue);
+        redisUtils.saveRefreshToken(username, refreshTokenValue);
 
         response.addHeader(JwtUtil.ACCESS_TOKEN_HEADER, accessToken);
         jwtUtil.addJwtToCookie(refreshToken, response);

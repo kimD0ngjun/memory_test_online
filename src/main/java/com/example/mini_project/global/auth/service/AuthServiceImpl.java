@@ -20,9 +20,9 @@ public class AuthServiceImpl implements AuthService {
     public ApiMessageDto logout(String userEmail) {
 
         // 로그아웃 처리를 위한 리프레쉬 토큰 redis에서 삭제
-        redisUtils.deleteData(userEmail);
+        redisUtils.deleteRefreshToken(userEmail);
 
-        if (redisUtils.getData(userEmail) != null) {
+        if (redisUtils.getRefreshToken(userEmail) != null) {
             throw new IllegalArgumentException("비정상적인 토큰 처리! 재확인 요망");
         }
 

@@ -3,7 +3,6 @@ package com.example.mini_project.global.auth.jwt;
 import com.example.mini_project.domain.entity.User;
 import com.example.mini_project.domain.repository.UserRepository;
 import com.example.mini_project.global.auth.entity.TokenPayload;
-import com.example.mini_project.global.auth.entity.TokenType;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
 import com.example.mini_project.global.redis.utils.RedisUtils;
 import io.jsonwebtoken.Claims;
@@ -74,7 +73,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             );
 
             // redis에 저장된 리프레쉬토큰 갖고오기
-            String refreshTokenValue = redisUtils.getData(email);
+            String refreshTokenValue = redisUtils.getRefreshToken(email);
 
             // 데이터베이스에 저장되어있는지 확인하기
             if (refreshTokenValue == null) {
@@ -108,7 +107,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             log.info("새로운 리프레쉬토큰: " + newRefreshToken);
 
             // 새로운 리프레쉬토큰 업데이트
-            redisUtils.setData(email, newRefreshToken.substring(7));
+            redisUtils.saveRefreshToken(email, newRefreshToken.substring(7));
 
             try {
                 // username 담아주기
@@ -142,7 +141,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             );
 
             // redis에 저장된 리프레쉬토큰 갖고오기
-            String refreshTokenValue = redisUtils.getData(email);
+            String refreshTokenValue = redisUtils.getRefreshToken(email);
 
             // 데이터베이스에 저장되어있는지 확인하기
             if (refreshTokenValue == null) {
