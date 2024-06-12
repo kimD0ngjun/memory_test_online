@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class RedisUtils {
+public class RedisRefreshTokenUtils {
 
     // key : username(email), value : refreshToken
     private final RedisTemplate<String, String> refreshTokenTemplate;

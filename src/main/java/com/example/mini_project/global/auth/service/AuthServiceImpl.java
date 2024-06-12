@@ -1,7 +1,7 @@
 package com.example.mini_project.global.auth.service;
 
 import com.example.mini_project.global.dto.ApiMessageDto;
-import com.example.mini_project.global.redis.utils.RedisUtils;
+import com.example.mini_project.global.redis.utils.RedisRefreshTokenUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,15 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final RedisUtils redisUtils;
+    private final RedisRefreshTokenUtils redisRefreshTokenUtils;
 
     @Override
     public ApiMessageDto logout(String userEmail) {
 
         // 로그아웃 처리를 위한 리프레쉬 토큰 redis에서 삭제
-        redisUtils.deleteRefreshToken(userEmail);
+        redisRefreshTokenUtils.deleteRefreshToken(userEmail);
 
-        if (redisUtils.getRefreshToken(userEmail) != null) {
+        if (redisRefreshTokenUtils.getRefreshToken(userEmail) != null) {
             throw new IllegalArgumentException("비정상적인 토큰 처리! 재확인 요망");
         }
 

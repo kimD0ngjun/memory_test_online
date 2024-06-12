@@ -4,7 +4,7 @@ import com.example.mini_project.domain.entity.User;
 import com.example.mini_project.domain.repository.UserRepository;
 import com.example.mini_project.global.auth.entity.TokenPayload;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
-import com.example.mini_project.global.redis.utils.RedisUtils;
+import com.example.mini_project.global.redis.utils.RedisRefreshTokenUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -33,7 +33,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService; // 사용자가 있는지 확인
 //    private final TokenService tokenService;
     private final UserRepository userRepository;
-    private final RedisUtils redisUtils;
+    private final RedisRefreshTokenUtils redisRefreshTokenUtils;
 
     @Override
     protected void doFilterInternal(
@@ -73,7 +73,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             );
 
             // redis에 저장된 리프레쉬토큰 갖고오기
-            String refreshTokenValue = redisUtils.getRefreshToken(email);
+            String refreshTokenValue = redisRefreshTokenUtils.getRefreshToken(email);
 
             // 데이터베이스에 저장되어있는지 확인하기
             if (refreshTokenValue == null) {
@@ -107,7 +107,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             log.info("새로운 리프레쉬토큰: " + newRefreshToken);
 
             // 새로운 리프레쉬토큰 업데이트
-            redisUtils.saveRefreshToken(email, newRefreshToken.substring(7));
+            redisRefreshTokenUtils.saveRefreshToken(email, newRefreshToken.substring(7));
 
             try {
                 // username 담아주기
@@ -141,7 +141,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             );
 
             // redis에 저장된 리프레쉬토큰 갖고오기
-            String refreshTokenValue = redisUtils.getRefreshToken(email);
+            String refreshTokenValue = redisRefreshTokenUtils.getRefreshToken(email);
 
             // 데이터베이스에 저장되어있는지 확인하기
             if (refreshTokenValue == null) {
