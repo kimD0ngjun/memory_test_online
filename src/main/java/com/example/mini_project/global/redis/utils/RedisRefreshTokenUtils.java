@@ -1,20 +1,15 @@
 package com.example.mini_project.global.redis.utils;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class RedisRefreshTokenUtils {
 
     // key : username(email), value : refreshToken
     private final RedisTemplate<String, String> refreshTokenTemplate;
-
-    public RedisRefreshTokenUtils(
-            @Qualifier("redisRefreshTokenTemplate") RedisTemplate<String, String> refreshTokenTemplate) {
-        this.refreshTokenTemplate = refreshTokenTemplate;
-    }
 
     public void saveRefreshToken(String key, String value){
         refreshTokenTemplate.opsForValue().set(key, value);
