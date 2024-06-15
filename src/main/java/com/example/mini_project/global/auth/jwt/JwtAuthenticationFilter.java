@@ -1,10 +1,10 @@
 package com.example.mini_project.global.auth.jwt;
 
-import com.example.mini_project.domain.dto.UserLoginRequestDto;
-import com.example.mini_project.domain.dto.UserLoginResponseDto;
-import com.example.mini_project.domain.entity.UserDetailsImpl;
-import com.example.mini_project.domain.entity.UserRoleEnum;
-import com.example.mini_project.domain.repository.UserRepository;
+import com.example.mini_project.domain.user.dto.UserLoginRequestDto;
+import com.example.mini_project.domain.user.dto.UserLoginResponseDto;
+import com.example.mini_project.domain.user.entity.UserDetailsImpl;
+import com.example.mini_project.domain.user.entity.UserRoleEnum;
+import com.example.mini_project.domain.user.repository.UserRepository;
 import com.example.mini_project.global.auth.entity.TokenPayload;
 import com.example.mini_project.global.exception.DuplicationException;
 import com.example.mini_project.global.exception.ResourceNotFoundException;

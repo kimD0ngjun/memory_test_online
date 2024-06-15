@@ -1,8 +1,8 @@
-package com.example.mini_project.domain.mapper;
+package com.example.mini_project.domain.user.mapper;
 
-import com.example.mini_project.domain.dto.UserDto;
-import com.example.mini_project.domain.entity.User;
-import com.example.mini_project.domain.entity.UserRoleEnum;
+import com.example.mini_project.domain.user.dto.UserDto;
+import com.example.mini_project.domain.user.entity.User;
+import com.example.mini_project.domain.user.entity.UserRoleEnum;
 
 // Employee 엔티티와 EmployeeDto dto를 매핑하는 Mapper 클래스
 public class UserMapper {

@@ -1,7 +1,6 @@
 package com.example.mini_project.global.auth.controller;
 
-import com.example.mini_project.domain.dto.UserDto;
-import com.example.mini_project.domain.entity.UserDetailsImpl;
+import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import com.example.mini_project.global.auth.service.AuthService;
 import com.example.mini_project.global.dto.ApiMessageDto;
 import io.swagger.v3.oas.annotations.Operation;

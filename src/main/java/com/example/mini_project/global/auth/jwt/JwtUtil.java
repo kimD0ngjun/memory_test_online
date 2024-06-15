@@ -1,6 +1,6 @@
 package com.example.mini_project.global.auth.jwt;
 
-import com.example.mini_project.domain.entity.UserRoleEnum;
+import com.example.mini_project.domain.user.entity.UserRoleEnum;
 import com.example.mini_project.global.auth.entity.TokenPayload;
 import com.example.mini_project.global.auth.entity.TokenType;
 import io.jsonwebtoken.*;

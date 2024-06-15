@@ -1,6 +1,6 @@
-package com.example.mini_project.domain.entity;
+package com.example.mini_project.domain.user.entity;
 
-import com.example.mini_project.domain.repository.UserRepository;
+import com.example.mini_project.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

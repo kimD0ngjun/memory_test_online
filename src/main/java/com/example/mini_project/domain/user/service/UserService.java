@@ -1,6 +1,6 @@
-package com.example.mini_project.domain.service;
+package com.example.mini_project.domain.user.service;
 
-import com.example.mini_project.domain.dto.UserDto;
+import com.example.mini_project.domain.user.dto.UserDto;
 
 import java.util.List;
 

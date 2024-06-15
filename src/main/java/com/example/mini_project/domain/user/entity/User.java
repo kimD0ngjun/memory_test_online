@@ -1,6 +1,6 @@
-package com.example.mini_project.domain.entity;
+package com.example.mini_project.domain.user.entity;
 
-import com.example.mini_project.domain.dto.UserDto;
+import com.example.mini_project.domain.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

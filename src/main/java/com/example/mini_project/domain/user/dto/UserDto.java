@@ -1,6 +1,6 @@
-package com.example.mini_project.domain.dto;
+package com.example.mini_project.domain.user.dto;
 
-import com.example.mini_project.domain.entity.UserRoleEnum;
+import com.example.mini_project.domain.user.entity.UserRoleEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
