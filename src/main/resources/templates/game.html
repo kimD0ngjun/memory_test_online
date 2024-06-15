@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" th:href="@{../img/IndexLogo.svg}" />
+    <link rel="icon" type="image/svg+xml" href="/css/IndexLogo.svg" />
     <title>Memory Test</title>
-    <link rel="stylesheet" th:href="@{../static/game.css}" />
+    <link rel="stylesheet" href="/css/game.css" />
 </head>
 <body>
 <header class="explain-container">
     <div id="logo" class="header-item">
-        <img id="logo-img" th:href="@{../img/Logo.svg}" alt="logo" />
+        <img id="logo-img" src="/css/Logo.svg" alt="logo" />
         <p id="clickLogo">click the logo !</p>
     </div>
     <ol id="explainList" class="header-item">
@@ -42,21 +42,21 @@
                 href="https://github.com/kimD0ngjun/memory_test"
                 target="_blank"
         >
-            <img class="icon" th:href="@{../img/Github.svg}" alt="gitHub" />
+            <img class="icon" src="/css/Github.svg" alt="gitHub" />
         </a>
         <a
                 class="iconBox"
                 href="mailto:chickentasty0112@gmail.com"
                 target="_blank"
         >
-            <img class="icon" th:href="@{../img/Mail.svg}" alt="gmail" />
+            <img class="icon" src="/css/Mail.svg" alt="gmail" />
         </a>
         <a
                 class="iconBox"
                 href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
                 target="_blank"
         >
-            <img class="icon" th:href="@{../img/Instagram.svg}" alt="instagram" />
+            <img class="icon" src="/css/Instagram.svg" alt="instagram" />
         </a>
     </div>
     <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
@@ -131,6 +131,6 @@
         <ul id="scoreList"></ul>
     </div>
 </footer>
-<script th:src="@{../static/js/game.js}"></script>
+<script src="/js/game.js"></script>
 </body>
 </html>

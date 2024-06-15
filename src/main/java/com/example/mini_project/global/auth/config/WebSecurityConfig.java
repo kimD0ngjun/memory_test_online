@@ -71,10 +71,11 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                        .requestMatchers("swagger-ui/**", "/v3/**").permitAll() // Swagger 관련
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll()
-                        .anyRequest().authenticated() // 그 외 모든 요청 인증처리 요구
+                                .requestMatchers("swagger-ui/**", "/v3/**").permitAll() // Swagger 관련
+                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 얘가 허용하는 건 static 내의 css와 js 폴더 뿐인건가?
+                                .requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll()
+                                .requestMatchers("/mini/game/play").permitAll()
+                                .anyRequest().authenticated() // 그 외 모든 요청 인증처리 요구
         );
 
         http.exceptionHandling(e ->
