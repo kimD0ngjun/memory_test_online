@@ -6,16 +6,15 @@ import com.example.mini_project.domain.entity.UserDetailsImpl;
 import com.example.mini_project.domain.entity.UserRoleEnum;
 import com.example.mini_project.domain.repository.UserRepository;
 import com.example.mini_project.global.auth.entity.TokenPayload;
-import com.example.mini_project.global.auth.entity.TokenType;
 import com.example.mini_project.global.exception.DuplicationException;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
-import com.example.mini_project.global.redis.utils.RedisUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,15 +30,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final JwtUtil jwtUtil; // 로그인 성공 시, 존맛탱 발급을 위한 의존성 주입
     private final UserRepository userRepository;
-    private final RedisUtils redisUtils;
+    private final RedisTemplate<String, String> redisRefreshToken;
 
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, UserRepository userRepository, RedisUtils redisUtils) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, UserRepository userRepository, RedisTemplate<String, String> redisRefreshToken) {
         this.jwtUtil = jwtUtil;
         setFilterProcessesUrl("/mini/user/login"); // 로그인 처리 경로 설정(매우매우 중요)
         super.setUsernameParameter("email");
         this.userRepository = userRepository;
-        this.redisUtils = redisUtils;
+        this.redisRefreshToken = redisRefreshToken;
     }
 
     @Override
@@ -80,7 +79,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 () ->  new ResourceNotFoundException("데이터베이스의 이메일 정보와 서버의 이메일 정보가 다름.")
         );
 
-        if (redisUtils.getData(username) != null) {
+        if (redisRefreshToken.opsForValue().get(username) != null) {
             throw new DuplicationException("이미 로그인되어있는 사용자! 공격자 확인 요망");
         }
 
@@ -89,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("초기 리프레쉬토큰: " + refreshTokenValue);
 
         // username(email) - refreshToken 덮어씌우기 저장
-        redisUtils.setData(username, refreshTokenValue);
+        redisRefreshToken.opsForValue().set(username, refreshTokenValue);
 
         response.addHeader(JwtUtil.ACCESS_TOKEN_HEADER, accessToken);
         jwtUtil.addJwtToCookie(refreshToken, response);

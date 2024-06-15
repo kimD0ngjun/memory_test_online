@@ -7,11 +7,11 @@ import com.example.mini_project.global.auth.jwt.JwtAuthenticationFilter;
 import com.example.mini_project.global.auth.jwt.JwtAuthorizationFilter;
 import com.example.mini_project.global.auth.jwt.JwtExceptionFilter;
 import com.example.mini_project.global.auth.jwt.JwtUtil;
-import com.example.mini_project.global.redis.utils.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -34,7 +34,7 @@ public class WebSecurityConfig {
     private final UserDetailsService userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final UserRepository userRepository;
-    private final RedisUtils redisUtils;
+    private final RedisTemplate<String, String> redisRefreshToken;
     // 필터단 예외
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint; // 인증 예외 커스텀 메시지 던지기
     private final JwtAccessDenyHandler jwtAccessDenyHandler; // 인가 예외 커스텀 메시지 던지기(역할별 접근권한같은)
@@ -48,14 +48,14 @@ public class WebSecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception { // 인증필터 생성
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(jwtUtil, userRepository, redisUtils);
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(jwtUtil, userRepository, redisRefreshToken);
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration)); // 인증매니저 설정
         return filter;
     }
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() { // 인가필터 생성
-        return new JwtAuthorizationFilter(jwtUtil, userDetailsService, userRepository, redisUtils);
+        return new JwtAuthorizationFilter(jwtUtil, userDetailsService, userRepository, redisRefreshToken);
     }
 
     @Bean
