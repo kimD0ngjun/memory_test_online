@@ -1,6 +1,6 @@
 package com.example.mini_project.global.auth.config;
 
-import com.example.mini_project.domain.repository.UserRepository;
+import com.example.mini_project.domain.user.repository.UserRepository;
 import com.example.mini_project.global.auth.exception.JwtAccessDenyHandler;
 import com.example.mini_project.global.auth.exception.JwtAuthenticationEntryPoint;
 import com.example.mini_project.global.auth.jwt.JwtAuthenticationFilter;

@@ -1,7 +1,7 @@
-package com.example.mini_project.domain.controller;
+package com.example.mini_project.domain.user.controller;
 
-import com.example.mini_project.domain.dto.UserDto;
-import com.example.mini_project.domain.service.UserService;
+import com.example.mini_project.domain.user.dto.UserDto;
+import com.example.mini_project.domain.user.service.UserService;
 import com.example.mini_project.global.dto.ApiMessageDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

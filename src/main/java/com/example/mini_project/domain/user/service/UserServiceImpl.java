@@ -1,11 +1,11 @@
-package com.example.mini_project.domain.service;
+package com.example.mini_project.domain.user.service;
 
-import com.example.mini_project.domain.dto.UserDto;
-import com.example.mini_project.domain.entity.User;
+import com.example.mini_project.domain.user.dto.UserDto;
+import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.global.exception.DuplicationException;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
-import com.example.mini_project.domain.mapper.UserMapper;
-import com.example.mini_project.domain.repository.UserRepository;
+import com.example.mini_project.domain.user.mapper.UserMapper;
+import com.example.mini_project.domain.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

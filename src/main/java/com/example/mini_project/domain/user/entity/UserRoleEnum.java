@@ -1,4 +1,4 @@
-package com.example.mini_project.domain.entity;
+package com.example.mini_project.domain.user.entity;
 
 import lombok.Getter;
 
