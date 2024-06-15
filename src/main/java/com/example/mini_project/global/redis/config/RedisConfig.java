@@ -1,5 +1,6 @@
 package com.example.mini_project.global.redis.config;
 
+import com.example.mini_project.domain.game.entity.Ranking;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -51,11 +52,11 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> sortedSetRedisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Ranking> sortedSetRedisTemplate() {
+        RedisTemplate<String, Ranking> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Ranking.class));
         return redisTemplate;
     }
 
