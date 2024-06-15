@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RankingRedisService {
 
-    private RankingRedisRepository rankingRedisRepository;
+    private final RankingRedisRepository rankingRedisRepository;
 
     // 랭킹 생성
     public void createRanking(User user, int level, int gameScore) {
