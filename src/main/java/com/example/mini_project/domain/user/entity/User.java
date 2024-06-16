@@ -1,11 +1,14 @@
 package com.example.mini_project.domain.user.entity;
 
+import com.example.mini_project.domain.game.entity.Record;
 import com.example.mini_project.domain.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class User {
 
     @Column(name = "user_role", nullable = false)
     private UserRoleEnum role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Record> records;
 
     public User(String username, String email, String password, UserRoleEnum role) {
         this.username = username;
