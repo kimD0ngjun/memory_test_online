@@ -37,8 +37,13 @@ public class RecordController {
         return ResponseEntity.ok().body(records);
     }
 
-//    @DeleteMapping("/record")
-//    public ResponseEntity<ApiMessageDto> deleteRecord(
-//
-//    )
+    @DeleteMapping("/record")
+    public ResponseEntity<ApiMessageDto> deleteRecord(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @RequestParam Long id
+    ) {
+        recordService.deleteRecord(userDetails.getUser(), id);
+        return ResponseEntity.ok().body(
+                new ApiMessageDto(HttpStatus.OK.value(), "정상적으로 기록이 삭제됐습니다."));
+    }
 }
