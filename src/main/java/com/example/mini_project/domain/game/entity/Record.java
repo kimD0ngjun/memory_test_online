@@ -1,11 +1,16 @@
 package com.example.mini_project.domain.game.entity;
 
+import com.example.mini_project.domain.game.dto.RankingRequestDto;
 import com.example.mini_project.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "records")
-public class Record {
+public class Record extends RecordTimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +34,10 @@ public class Record {
 
     @Column(name = "score", nullable = false)
     private int gameScore;
+
+    public Record(User user, RankingRequestDto rankingRequestDto) {
+        this.user = user;
+        this.level = rankingRequestDto.getLevel();
+        this.gameScore = rankingRequestDto.getGameScore();
+    }
 }
