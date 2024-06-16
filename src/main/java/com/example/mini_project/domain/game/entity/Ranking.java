@@ -3,10 +3,12 @@ package com.example.mini_project.domain.game.entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @RedisHash(value = "ranking")
 public class Ranking {
     @Id
@@ -14,7 +16,9 @@ public class Ranking {
     private String username;
     private int level;
     private int gameScore;
-    private Double score;
+    private int score;
+
+    private static final int MULTIPLE = 1_000_000;
 
     public Ranking(String email, String username, int level, int gameScore) {
         this.email = email;
@@ -24,7 +28,7 @@ public class Ranking {
         this.score = calculateScore(level, gameScore);
     }
 
-    private Double calculateScore(int level, int gameScore) {
-        return level * Math.pow(10, 20) * level + gameScore;
+    private int calculateScore(int level, int gameScore) {
+        return level * MULTIPLE + gameScore;
     }
 }
