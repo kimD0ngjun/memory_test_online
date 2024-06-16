@@ -34,12 +34,13 @@ public class UserServiceImpl implements UserService {
         User user;
         String password = passwordEncoder.encode(userDto.getPassword());
 
-        // TODO: 추후 관리자 인증번호 발급 등의 로직 추가 필요
-        if (userDto.getAdminNumber() != null) {
-            user = UserMapper.mapToAdmin(userDto, password);
-        } else {
-            user = UserMapper.mapToUser(userDto, password);
-        }
+//        // TODO: 추후 관리자 인증번호 발급 등의 로직 추가 필요
+//        if (userDto.getAdminNumber() != null) {
+//            user = UserMapper.mapToAdmin(userDto, password);
+//        } else {
+//            user = UserMapper.mapToUser(userDto, password);
+//        }
+        user = UserMapper.mapToUser(userDto, password);
 
         User savedUser = userRepository.save(user);
 
