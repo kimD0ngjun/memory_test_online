@@ -32,9 +32,14 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public void deleteRecord(Long recordId) {
-        if (recordRepository.findById(recordId).isEmpty())
-            throw new ResourceNotFoundException("조회하려는 기록 없음!");
+    public void deleteRecord(User user, Long recordId) {
+        Record record =
+                recordRepository.findById(recordId).orElseThrow(
+                        () -> new ResourceNotFoundException("조회하려는 기록 없음!"));
+
+        if (!record.getUser().equals(user)) {
+            throw new IllegalArgumentException("본인 소유 기록 아님!");
+        }
 
         recordRepository.deleteById(recordId);
     }

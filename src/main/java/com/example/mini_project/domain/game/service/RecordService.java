@@ -12,5 +12,5 @@ public interface RecordService {
 
     List<RecordResponseDto> getRecords(User user);
 
-    void deleteRecord(Long recordId);
+    void deleteRecord(User user, Long recordId);
 }
