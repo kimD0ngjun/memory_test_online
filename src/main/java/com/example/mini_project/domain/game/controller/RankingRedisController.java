@@ -1,6 +1,7 @@
 package com.example.mini_project.domain.game.controller;
 
 import com.example.mini_project.domain.game.dto.RankingRequestDto;
+import com.example.mini_project.domain.game.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.entity.Ranking;
 import com.example.mini_project.domain.game.service.RankingRedisService;
 import com.example.mini_project.domain.user.entity.User;
@@ -33,8 +34,8 @@ public class RankingRedisController {
     }
 
     @GetMapping("/ranking")
-    public ResponseEntity<List<Ranking>> getTopRankings() {
-        List<Ranking> rankings = rankingService.getTopRankings(TOP_RANKING);
+    public ResponseEntity<List<RankingResponseDto>> getTopRankings() {
+        List<RankingResponseDto> rankings = rankingService.getTopRankings(TOP_RANKING);
         return ResponseEntity.ok(rankings);
     }
 }

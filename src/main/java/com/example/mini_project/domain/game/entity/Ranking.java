@@ -11,6 +11,20 @@ import org.springframework.data.redis.core.RedisHash;
 public class Ranking {
     @Id
     private String email;
-
+    private String username;
+    private int level;
+    private int gameScore;
     private Double score;
+
+    public Ranking(String email, String username, int level, int gameScore) {
+        this.email = email;
+        this.username = username;
+        this.level = level;
+        this.gameScore = gameScore;
+        this.score = calculateScore(level, gameScore);
+    }
+
+    private Double calculateScore(int level, int gameScore) {
+        return level * Math.pow(10, 20) * level + gameScore;
+    }
 }
