@@ -8,10 +8,12 @@ import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RecordServiceImpl implements RecordService {
 
@@ -24,6 +26,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RecordResponseDto> getRecords(User user) {
         return recordRepository.findByUser(user).stream().map(RecordResponseDto::new).toList();
     }
