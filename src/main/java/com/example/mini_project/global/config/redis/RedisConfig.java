@@ -1,4 +1,4 @@
-package com.example.mini_project.global.redis.config;
+package com.example.mini_project.global.config.redis;
 
 import com.example.mini_project.domain.game.entity.Ranking;
 import lombok.RequiredArgsConstructor;
