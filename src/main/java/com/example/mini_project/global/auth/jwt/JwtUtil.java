@@ -133,6 +133,17 @@ public class JwtUtil {
                 .getIssuedAt();
     }
 
+    /**
+     * 새로 추가된 메소드
+     * */
+    // 토큰이 만료되었는지 확인하는 메서드
+    public boolean isTokenExpired(String token) {
+        Date issuedAt = getTokenIat(token);
+        Date now = new Date();
+        long tokenAge = now.getTime() - issuedAt.getTime();
+        return tokenAge > ACCESS_TOKEN_TIME;
+    }
+
     // cookie에 리프레시 토큰 저장 (x)
     // cookie에 액세스 토큰 저장
     public void addJwtToCookie(String token, HttpServletResponse res) {
@@ -171,9 +182,6 @@ public class JwtUtil {
         } catch (SecurityException | MalformedJwtException | SignatureException e) {
             logger.error("Invalid JWT signature, 유효하지 않는 JWT 서명입니다.");
             throw new JwtException("Invalid JWT signature, 유효하지 않는 JWT 서명입니다.");
-        } catch (ExpiredJwtException e) {
-            logger.error("Expired JWT token, 만료된 JWT 토큰입니다.");
-            throw new JwtException("Expired JWT token, 만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
             logger.error("Unsupported JWT token, 지원되지 않는 JWT 토큰입니다.");
             throw new JwtException("Unsupported JWT token, 지원되지 않는 JWT 토큰입니다.");
@@ -183,6 +191,11 @@ public class JwtUtil {
         } catch (Exception e) {
             logger.error("기타 에러 확인 요망");
         }
+
+        //        catch (ExpiredJwtException e) {
+//            logger.error("Expired JWT token, 만료된 JWT 토큰입니다.");
+//            throw new JwtException("Expired JWT token, 만료된 JWT 토큰입니다.");
+//        }
 
         return false;
     }
@@ -202,7 +215,10 @@ public class JwtUtil {
 
         if(cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(ACCESS_TOKEN_HEADER)) {
+//                if (cookie.getName().equals(ACCESS_TOKEN_HEADER)) {
+//                    return URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8); // Encode 되어 넘어간 Value 다시 Decode
+//                }
+                if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
                     return URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8); // Encode 되어 넘어간 Value 다시 Decode
                 }
             }

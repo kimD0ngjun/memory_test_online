@@ -55,21 +55,92 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
          3. 즉 엑세스토큰을 set-cookie로 설정하면 굳이 클라이언트 측에서 토큰 관련 로직을 건드릴 필요 없다
          */
 
-        String accessToken = jwtUtil.getAccessTokenFromRequestCookie(request);
-        String refreshToken = jwtUtil.getRefreshTokenFromRequestCookie(request);
+        String accessToken = jwtUtil.getAccessTokenFromRequestCookie(request); // -> 요 놈을 써야 해
 
-        // 우선 리프레쉬토큰인지부터 확인하기
-        if (StringUtils.hasText(refreshToken)) {
-            refreshToken = jwtUtil.substringToken(refreshToken);
-            log.info("리프레쉬토큰: " + refreshToken);
+        /**
 
-            // 날짜 만료로 인한 로그아웃 처리가 요청될듯
-            if (!jwtUtil.validateToken(refreshToken)) {
+         신버전
+         1. 쿠키로부터 엑세스 토큰을 갖고온다
+         2. if (StringUtils.hasText(accessToken))
+         3. 시간 만료를 제외한 유효성 검사부터 먼저 수행한다.
+         4. 유효성 검사 통과하면 시간 만료 여부를 확인한다.
+         5. 시간이 만료됐을 때, 리프레쉬토큰과의 비교 작업 처리해서 둘을 재발급한다.
+
+         */
+
+        String olderRefreshToken = jwtUtil.getRefreshTokenFromRequestCookie(request);
+
+        if (StringUtils.hasText(accessToken)) {
+            accessToken = jwtUtil.substringToken(accessToken);
+            log.info("쿠키로부터 뽑은 엑세스 토큰: " + accessToken);
+
+            // 날짜 만료 제외한 나머지 엑세스 토큰 유효성 판별
+            if (!jwtUtil.validateToken(accessToken)) {
                 log.error("Token Error");
                 return;
             }
 
-            Claims info = jwtUtil.getUserInfoFromToken(refreshToken);
+            // 날짜 만료 확인
+            // 만약 엑세스토큰이 만료됐으면
+            // 새로운 액세스토큰과 리프레쉬토큰을 발급해야 됨
+            if (jwtUtil.isTokenExpired(accessToken)) {
+                // 엑세스토큰에서 이메일 정보 추출
+                Claims info = jwtUtil.getUserInfoFromToken(accessToken);
+                String email = info.getSubject();
+
+                // 이메일로부터 회원 객체 조회
+                User user = userRepository.findByEmail(email).orElseThrow(
+                        () -> new ResourceNotFoundException("비정상적인 이메일 정보. 재확인 바람.")
+                );
+
+                // 이메일로 기존의 리프레쉬토큰 조회
+                // redis에 저장된 리프레쉬토큰 갖고오기
+                String refreshToken = redisRefreshToken.opsForValue().get(email);
+
+                // 데이터베이스에 저장되어있는지 확인하기
+                if (refreshToken == null) {
+                    throw new ResourceNotFoundException("저장되지 않은 토큰 정보. 재확인 바람.");
+                }
+
+                // 발급일자 비교를 통한 블랙리스트 여부 확인
+                Date iatAccessToken = jwtUtil.getTokenIat(accessToken);
+                Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
+
+                log.info("엑세스토큰 발급시간: " + iatAccessToken);
+                log.info("리프레쉬토큰 발급시간: " + iatRefreshToken);
+
+                if (!iatRefreshToken.equals(iatAccessToken)) {
+                    throw new ResourceNotFoundException("블랙리스트 처리된 리프레쉬 토큰 요구 확인.");
+                }
+
+                // 위에까지 전부 통과됐으면 이제 엑세스토큰과 리프레쉬토큰 갱신
+                // 인덱스 0: accessTokenPayload, 인덱스 1: refreshTokenPayload
+                List<TokenPayload> tokenPayloads = jwtUtil.createTokenPayloads(user.getEmail(), user.getRole());
+
+                String newAccessToken = jwtUtil.createAccessToken(tokenPayloads.get(0));
+                String newRefreshToken = jwtUtil.createRefreshToken(tokenPayloads.get(1));
+            }
+
+
+        }
+
+
+        /***************************************************************/
+
+
+
+        // 우선 리프레쉬토큰인지부터 확인하기
+        if (StringUtils.hasText(olderRefreshToken)) {
+            olderRefreshToken = jwtUtil.substringToken(olderRefreshToken);
+            log.info("리프레쉬토큰: " + olderRefreshToken);
+
+            // 날짜 만료로 인한 로그아웃 처리가 요청될듯
+            if (!jwtUtil.validateToken(olderRefreshToken)) {
+                log.error("Token Error");
+                return;
+            }
+
+            Claims info = jwtUtil.getUserInfoFromToken(olderRefreshToken);
             String email = info.getSubject();
 
             User user = userRepository.findByEmail(email).orElseThrow(
@@ -85,11 +156,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             }
 
             // 데이터베이스의 내용과 일치하는지 확인하기
-            if (!refreshTokenValue.equals(refreshToken)) {
+            if (!refreshTokenValue.equals(olderRefreshToken)) {
                 throw new ResourceNotFoundException("일치하는 토큰 정보 찾을 수 없음. 재확인 바람.");
             }
 
-            Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
+            Date iatRefreshToken = jwtUtil.getTokenIat(olderRefreshToken);
             Date iatRefreshTokenValue = jwtUtil.getTokenIat(refreshTokenValue);
 
             if (!iatRefreshTokenValue.equals(iatRefreshToken)) {
