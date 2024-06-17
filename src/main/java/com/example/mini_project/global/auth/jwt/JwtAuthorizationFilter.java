@@ -41,13 +41,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws ServletException, IOException {
 
         /**
-         1. 토큰의 타입부터 확인한다
-         2-1. 엑세스토큰이 확인됐다
-         2-2. 유효성 판별 후 필터단 넘긴다
-         2-3. 만약 만료된 토큰?
-         3-1. 리프레쉬토큰이 확인됐다
-         3-2. 유효한 리프레쉬토큰이면 리스폰 헤더에 새로 발급한 엑세스토큰 담기
-         3-3. 만료된 리프레쉬토큰이면 그냥 예외 반환
+//         1. 토큰의 타입부터 확인한다
+//         2-1. 엑세스토큰이 확인됐다
+//         2-2. 유효성 판별 후 필터단 넘긴다
+//         2-3. 만약 만료된 토큰?
+//         3-1. 리프레쉬토큰이 확인됐다
+//         3-2. 유효한 리프레쉬토큰이면 리스폰 헤더에 새로 발급한 엑세스토큰 담기
+//         3-3. 만료된 리프레쉬토큰이면 그냥 예외 반환
+
+         신버전
+         1. 클라이언트는 엑세스토큰만 신경쓴다
+         2. 어차피 레디스에 리프레쉬토큰이 저장되어있다
+         3. 즉 엑세스토큰을 set-cookie로 설정하면 굳이 클라이언트 측에서 토큰 관련 로직을 건드릴 필요 없다
          */
 
         String accessToken = jwtUtil.getAccessTokenFromRequestCookie(request);

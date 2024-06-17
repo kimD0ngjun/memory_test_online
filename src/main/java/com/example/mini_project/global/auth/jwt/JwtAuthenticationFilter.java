@@ -41,6 +41,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.redisRefreshToken = redisRefreshToken;
     }
 
+    /**
+     신버전
+     1. 클라이언트는 엑세스토큰만 신경쓴다
+     2. 어차피 레디스에 리프레쉬토큰이 저장되어있다
+     3. 즉 엑세스토큰을 set-cookie로 설정하면 굳이 클라이언트 측에서 토큰 관련 로직을 건드릴 필요 없다
+     */
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         // 로그인 시도를 담당함
