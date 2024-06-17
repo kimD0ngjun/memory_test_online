@@ -1,4 +1,4 @@
-package com.example.mini_project.global.config;
+package com.example.mini_project.global.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
