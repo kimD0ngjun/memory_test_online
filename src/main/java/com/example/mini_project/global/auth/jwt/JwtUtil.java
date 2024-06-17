@@ -138,11 +138,36 @@ public class JwtUtil {
      * */
     // 토큰이 만료되었는지 확인하는 메서드
     public boolean isTokenExpired(String token) {
-        Date issuedAt = getTokenIat(token);
-        Date now = new Date();
-        long tokenAge = now.getTime() - issuedAt.getTime();
-        return tokenAge > ACCESS_TOKEN_TIME;
+        try {
+            // 서명을 검증하지 않고 클레임을 파싱
+            Claims claims = Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+            Date expiration = claims.getExpiration();
+            return expiration.before(new Date());
+        } catch (ExpiredJwtException ex) {
+            // 토큰 파싱 중 에러가 발생한 경우
+            return true;
+        }
     }
+
+    public String getUsernameFromExpiredToken(String token) {
+        try {
+            // 만료된 토큰에서 클레임을 파싱하되 서명 검증은 생략
+            Claims claims = Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+            return claims.getSubject(); // username이나 email을 subject로 저장했다고 가정
+        } catch (ExpiredJwtException e) {
+            // 토큰이 만료되었을 경우 ExpiredJwtException에서 클레임을 추출
+            return e.getClaims().getSubject();
+        }
+    }
+
 
     // cookie에 리프레시 토큰 저장 (x)
     // cookie에 액세스 토큰 저장

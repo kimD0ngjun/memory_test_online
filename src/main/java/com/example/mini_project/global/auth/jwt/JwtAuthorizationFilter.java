@@ -5,6 +5,7 @@ import com.example.mini_project.domain.user.repository.UserRepository;
 import com.example.mini_project.global.auth.entity.TokenPayload;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -70,11 +71,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
          */
 
-//        String olderRefreshToken = jwtUtil.getRefreshTokenFromRequestCookie(request); // 넌 지워질 예정
-
-        // 엑세스토큰에서 이메일 정보 추출
-        Claims info = jwtUtil.getUserInfoFromToken(accessToken);
-        String email = info.getSubject();
+        // 엑세스토큰에서 이메일 정보 추출(만료됐든 아니든)
+        String email = jwtUtil.getUsernameFromExpiredToken(accessToken);
 
         // 이메일로부터 회원 객체 조회
         User user = userRepository.findByEmail(email).orElseThrow(
@@ -92,40 +90,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(accessToken)) {
 
-            // 날짜 만료 제외한 나머지 엑세스 토큰 자체 유효성 판별
-            if (!jwtUtil.validateToken(accessToken)) {
-                log.error("Token Error");
-                return;
-            }
-
-            // 만약 재발급이 필요없으면 그냥 블랙리스트 여부만 판별 및 확인
-            // 발급일자 비교를 통한 블랙리스트 여부 확인
-            Date iatAccessToken = jwtUtil.getTokenIat(accessToken);
-            Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
-
-            log.info("엑세스토큰 발급시간: " + iatAccessToken);
-            log.info("리프레쉬토큰 발급시간: " + iatRefreshToken);
-
-            if (!iatRefreshToken.equals(iatAccessToken)) {
-                throw new ResourceNotFoundException("블랙리스트 처리된 리프레쉬 토큰 요구 확인.");
-            }
-
             // 날짜 만료 확인
             // 만약 엑세스토큰이 만료됐으면
             // 새로운 액세스토큰과 리프레쉬토큰을 발급해야 됨
             if (jwtUtil.isTokenExpired(accessToken)) {
 
-//                // 발급일자 비교를 통한 블랙리스트 여부 확인
-//                Date iatAccessToken = jwtUtil.getTokenIat(accessToken);
-//                Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
-//
-//                log.info("엑세스토큰 발급시간: " + iatAccessToken);
-//                log.info("리프레쉬토큰 발급시간: " + iatRefreshToken);
-//
-//                if (!iatRefreshToken.equals(iatAccessToken)) {
-//                    throw new ResourceNotFoundException("블랙리스트 처리된 리프레쉬 토큰 요구 확인.");
-//                }
-
+                log.info("토큰이 만료됨");
                 // 위에까지 전부 통과됐으면 이제 엑세스토큰과 리프레쉬토큰 갱신
                 // 인덱스 0: accessTokenPayload, 인덱스 1: refreshTokenPayload
                 List<TokenPayload> tokenPayloads = jwtUtil.createTokenPayloads(user.getEmail(), user.getRole());
@@ -148,15 +118,29 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     log.error(e.getMessage());
                     return;
                 }
+            } else {
+                // 만약 재발급이 필요없으면 그냥 블랙리스트 여부만 판별 및 확인
+                // 발급일자 비교를 통한 블랙리스트 여부 확인
+                Date iatAccessToken = jwtUtil.getTokenIat(accessToken);
+                Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
+
+                log.info("엑세스토큰 발급시간: " + iatAccessToken);
+                log.info("리프레쉬토큰 발급시간: " + iatRefreshToken);
+
+                if (!iatRefreshToken.equals(iatAccessToken)) {
+                    throw new ResourceNotFoundException("블랙리스트 처리된 리프레쉬 토큰 요구 확인.");
+                }
+
+                try {
+                    // username 담아주기
+                    setAuthentication(email);
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                    return;
+                }
             }
 
-            try {
-                // username 담아주기
-                setAuthentication(info.getSubject());
-            } catch (Exception e) {
-                log.error(e.getMessage());
-                return;
-            }
+            // 날짜 만료 제외한 나머지 엑세스 토큰 자체 유효성 판별은 이미 JwtException 필터에서 수행
 
         }
 
