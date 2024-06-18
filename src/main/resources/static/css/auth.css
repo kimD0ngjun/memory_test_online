@@ -29,7 +29,6 @@ body{
 
 .container p{
     font-size: 18px;
-    font-weight: 30px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
@@ -214,6 +213,16 @@ body{
 }
 
 /* 헤더 */
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+}
+
+#logo-img {
+    width: 15rem;
+}
 
 .explain-container {
     height: 100vh;
