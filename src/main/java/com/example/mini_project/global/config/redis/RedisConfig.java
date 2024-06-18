@@ -1,6 +1,7 @@
 package com.example.mini_project.global.config.redis;
 
 import com.example.mini_project.domain.game.entity.Ranking;
+import com.example.mini_project.global.auth.entity.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -42,9 +43,8 @@ public class RedisConfig {
     }
 
     @Bean
-    @Primary
-    public RedisTemplate<String, String> redisTemplate() {
-        RedisTemplate<String, String> template = new RedisTemplate<>();
+    public RedisTemplate<String, Token> redisTemplate() {
+        RedisTemplate<String, Token> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new StringRedisSerializer());
