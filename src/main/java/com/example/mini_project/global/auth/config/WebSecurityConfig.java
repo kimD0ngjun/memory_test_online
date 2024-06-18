@@ -93,7 +93,6 @@ public class WebSecurityConfig {
                         .requestMatchers("swagger-ui/**", "/v3/**").permitAll() // Swagger 관련
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 얘가 허용하는 건 static 내의 css와 js 폴더 뿐인건가?
                         .requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/game").permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리 요구
         );
@@ -102,9 +101,19 @@ public class WebSecurityConfig {
                 e.authenticationEntryPoint(jwtAuthenticationEntryPoint).accessDeniedHandler(jwtAccessDenyHandler));
 
         // JWT 방식의 REST API 서버이기 때문에 FormLogin 방식, HttpBasic 방식 비활성화(논의 필요)
-        // 해당 기능은 람다식으로
-        http.formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable);
+        // 로그인 사용
+        http.formLogin((formLogin) ->
+                formLogin
+                        // 로그인 View 제공 (GET /api/user/login-page)
+                        .loginPage("/")
+                        // 로그인 처리 (POST /api/user/login)
+                        .loginProcessingUrl("/mini/user/login") // 둘을 똑같이 작성하면 안 됨
+                        // 로그인 처리 후 성공 시 URL
+                        .defaultSuccessUrl("/game")
+                        // 로그인 처리 후 실패 시 URL
+                        .failureUrl("/")
+                        .permitAll()
+        );
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class); // 인가 처리 필터
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 인증(+ 로그인) 처리 필터
