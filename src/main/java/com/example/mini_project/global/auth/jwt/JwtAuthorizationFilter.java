@@ -48,43 +48,63 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
          */
 
         String accessTokenValue = jwtUtil.getAccessTokenFromRequestCookie(request); // -> 요 놈을 써야 해
-        log.info("쿠키로부터 갖고 온 엑세스토큰: " + accessTokenValue);
-        String accessToken = jwtUtil.substringToken(accessTokenValue);
 
-        /**
+        if (StringUtils.hasText(accessTokenValue)) {
+            log.info("쿠키로부터 갖고 온 엑세스토큰: " + accessTokenValue);
+            String accessToken = jwtUtil.substringToken(accessTokenValue);
 
-         신버전
-         1. 쿠키로부터 엑세스 토큰을 갖고온다
-         2. if (StringUtils.hasText(accessToken))
-         3. 시간 만료를 제외한 유효성 검사부터 먼저 수행한다.
-         4. 유효성 검사 통과하면 시간 만료 여부를 확인한다.
-         5. 시간이 만료됐을 때, 리프레쉬토큰과의 비교 작업 처리해서 둘을 재발급한다.
+            /**
 
-         */
+             신버전
+             1. 쿠키로부터 엑세스 토큰을 갖고온다
+             2. if (StringUtils.hasText(accessToken))
+             3. 시간 만료를 제외한 유효성 검사부터 먼저 수행한다.
+             4. 유효성 검사 통과하면 시간 만료 여부를 확인한다.
+             5. 시간이 만료됐을 때, 리프레쉬토큰과의 비교 작업 처리해서 둘을 재발급한다.
 
-        // 엑세스토큰에서 이메일 정보 추출(만료됐든 아니든)
-        String email = jwtUtil.getUsernameFromExpiredToken(accessToken);
+             */
 
-        // 이메일로부터 회원 객체 조회
-        User user = userRepository.findByEmail(email).orElseThrow(
-                () -> new ResourceNotFoundException("비정상적인 이메일 정보. 재확인 바람.")
-        );
+            // 엑세스토큰에서 이메일 정보 추출(만료됐든 아니든)
+            /**
+             *
+             *  이 부분 수정하기
+             *  1. <String, Token> 이런 식으로 RedisTemplate 업데이트해보기
+             *  2. 시간 만료가 됐을 때는 만료로 처리를 하는 것이 논리적으로 올을지
+             *  3. requestMatchers 메소드여도 필터는 타게 되는 건지(맞는 거 같은데 어케했노)
+             *
+             * */
+            String email = jwtUtil.getUsernameFromExpiredToken(accessToken);
 
-        // 이메일로 기존의 리프레쉬토큰 조회
-        // redis에 저장된 리프레쉬토큰 갖고오기
-        String refreshToken = redisRefreshToken.opsForValue().get(email);
+            // 이메일로부터 회원 객체 조회
+            User user = userRepository.findByEmail(email).orElseThrow(
+                    () -> new ResourceNotFoundException("비정상적인 이메일 정보. 재확인 바람.")
+            );
 
-        // 리프레쉬 토큰 만료 확인
-        if (jwtUtil.isTokenExpired(refreshToken)) {
-            throw new ResourceNotFoundException("리프레쉬 토큰 만료, 로그아웃 요망.");
-        }
+            // 이메일로 기존의 리프레쉬토큰 조회
+            // redis에 저장된 리프레쉬토큰 갖고오기
+            String refreshToken = redisRefreshToken.opsForValue().get(email);
 
-        // 데이터베이스에 저장되어있는지 확인하기
-        if (refreshToken == null) {
-            throw new ResourceNotFoundException("저장되지 않은 토큰 정보. 공격자 확인 바람.");
-        }
+            // 리프레쉬 토큰 만료 확인
+            if (jwtUtil.isTokenExpired(refreshToken)) {
+                throw new ResourceNotFoundException("리프레쉬 토큰 만료, 로그아웃 요망.");
+            }
 
-        if (StringUtils.hasText(accessToken)) {
+            // 데이터베이스에 저장되어있는지 확인하기
+            if (refreshToken == null) {
+                throw new ResourceNotFoundException("저장되지 않은 토큰 정보. 공격자 확인 바람.");
+            }
+
+            // 만약 재발급이 필요없으면 그냥 블랙리스트 여부만 판별 및 확인
+            // 발급일자 비교를 통한 블랙리스트 여부 확인
+            Date iatAccessToken = jwtUtil.getTokenIat(accessToken);
+            Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
+
+            log.info("엑세스토큰 발급시간: " + iatAccessToken);
+            log.info("리프레쉬토큰 발급시간: " + iatRefreshToken);
+
+            if (!iatRefreshToken.equals(iatAccessToken)) {
+                throw new ResourceNotFoundException("블랙리스트 처리된 리프레쉬 토큰 요구 확인.");
+            }
 
             // 날짜 만료 확인
             // 만약 엑세스토큰이 만료됐으면
@@ -119,18 +139,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                  * 여기선 리프레쉬토큰 만료 여부 확인 불필요
                  * 엑세스토큰이 만료되지 않았다는 건 리프레쉬토큰도 만료되지 않았으므로
                  * */
-                // 만약 재발급이 필요없으면 그냥 블랙리스트 여부만 판별 및 확인
-                // 발급일자 비교를 통한 블랙리스트 여부 확인
-                Date iatAccessToken = jwtUtil.getTokenIat(accessToken);
-                Date iatRefreshToken = jwtUtil.getTokenIat(refreshToken);
-
-                log.info("엑세스토큰 발급시간: " + iatAccessToken);
-                log.info("리프레쉬토큰 발급시간: " + iatRefreshToken);
-
-                if (!iatRefreshToken.equals(iatAccessToken)) {
-                    throw new ResourceNotFoundException("블랙리스트 처리된 리프레쉬 토큰 요구 확인.");
-                }
-
                 try {
                     // username 담아주기
                     setAuthentication(email);
