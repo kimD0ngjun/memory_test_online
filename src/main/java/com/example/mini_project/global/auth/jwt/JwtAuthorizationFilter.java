@@ -63,6 +63,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
          */
 
         // 엑세스토큰에서 이메일 정보 추출(만료됐든 아니든)
+        /**
+         *
+         *  이 부분 수정하기
+         *  1. <String, Token> 이런 식으로 RedisTemplate 업데이트해보기
+         *  2. 시간 만료가 됐을 때는 만료로 처리를 하는 것이 논리적으로 올을지
+         *  3. requestMatchers 메소드여도 필터는 타게 되는 건지(맞는 거 같은데 어케했노)
+         *
+         * */
         String email = jwtUtil.getUsernameFromExpiredToken(accessToken);
 
         // 이메일로부터 회원 객체 조회
