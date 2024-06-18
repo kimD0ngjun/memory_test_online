@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/mini/game")
+//@RequestMapping("/mini/game")
 public class GameController {
 
-    @GetMapping("/play")
+    @GetMapping("/")
     public String getGamePlay() {
         return "auth";
     }

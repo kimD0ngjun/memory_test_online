@@ -14,15 +14,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity // Spring Security 지원을 가능하게 함
@@ -58,6 +61,16 @@ public class WebSecurityConfig {
         return new JwtAuthorizationFilter(jwtUtil, userDetailsService, userRepository, redisRefreshToken);
     }
 
+    // requestMatcher 동작 불능 에러 극복을 위한 임시 빈 등록
+//    @Bean
+//    public WebSecurityCustomizer configure() {
+//        return (web) -> web.ignoring()
+//                .requestMatchers(new AntPathRequestMatcher("/mini/user/signup"))
+//                .requestMatchers(new AntPathRequestMatcher("/favicon.ico"))
+//                .requestMatchers(new AntPathRequestMatcher("/css/**"))
+//                .requestMatchers(new AntPathRequestMatcher("/js/**"));
+//    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // CSRF(사이트 간 요청 위조) 설정 비활성화
@@ -69,14 +82,27 @@ public class WebSecurityConfig {
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
 
+        // suhwan
+//        http.cors(Customizer.withDefaults())
+//                        .authorizeHttpRequests((request) ->{
+//                            request.requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll();
+//                        });
+
         http.authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests
-                                .requestMatchers("swagger-ui/**", "/v3/**").permitAll() // Swagger 관련
-                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 얘가 허용하는 건 static 내의 css와 js 폴더 뿐인건가?
-                                .requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/mini/game/play").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/").permitAll()
-                                .anyRequest().authenticated() // 그 외 모든 요청 인증처리 요구
+                authorizeHttpRequests
+                        .requestMatchers("swagger-ui/**", "/v3/**").permitAll() // Swagger 관련
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 얘가 허용하는 건 static 내의 css와 js 폴더 뿐인건가?
+                        .requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/mini/game/play").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
+//                        .requestMatchers(
+//                                new AntPathRequestMatcher("/mini/user/signup"),
+//                                new AntPathRequestMatcher("/mini/game/play"),
+//                                new AntPathRequestMatcher("/"),
+//                                new AntPathRequestMatcher("/css/**"),
+//                                new AntPathRequestMatcher("/js/**")
+//                        ).permitAll()
+                        .anyRequest().authenticated() // 그 외 모든 요청 인증처리 요구
         );
 
         http.exceptionHandling(e ->
