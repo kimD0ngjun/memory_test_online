@@ -12,6 +12,6 @@ public class GameController {
 
     @GetMapping("/play")
     public String getGamePlay() {
-        return "game";
+        return "auth";
     }
 }
