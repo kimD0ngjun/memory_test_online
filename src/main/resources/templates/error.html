@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/css/IndexLogo.svg" />
+    <title>Error Page</title>
+</head>
+<body>
+<header class="explain-container">
+    <div id="logo" class="header-item">
+        <img id="logo-img" src="/css/Logo.svg" alt="logo" />
+    </div>
+    <div>
+        <div id="myProfile" class="header-item">
+            <a
+                    class="iconBox"
+                    href="https://github.com/kimD0ngjun/memory_test"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Github.svg" alt="gitHub" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="mailto:chickentasty0112@gmail.com"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Mail.svg" alt="gmail" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Instagram.svg" alt="instagram" />
+            </a>
+        </div>
+        <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
+    </div>
+</header>
+<div class="container" id="container">
+    <img class="error-img" alt="Error!" src="/css/error.svg" />
+    <p th:text="${error}">Error message</p>
+</div>
+<footer class="explain-container"></footer>
+</body>
+</html>

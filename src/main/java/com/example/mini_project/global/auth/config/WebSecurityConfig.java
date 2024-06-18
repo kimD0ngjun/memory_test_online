@@ -94,6 +94,7 @@ public class WebSecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 얘가 허용하는 건 static 내의 css와 js 폴더 뿐인건가?
                         .requestMatchers(HttpMethod.POST, "/mini/user/signup").permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/error").permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리 요구
         );
 
