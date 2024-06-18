@@ -13,7 +13,7 @@ public class PageController {
         return "auth";
     }
 
-    @GetMapping("/mini/game/play")
+    @GetMapping("/game")
     public String getGamePage() {
         return "game";
     }
