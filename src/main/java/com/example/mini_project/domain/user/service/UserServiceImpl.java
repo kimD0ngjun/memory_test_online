@@ -26,10 +26,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
 
+        log.info("가입한 이메일: " + userDto.getEmail());
+
         // 이메일 중복 처리 예외
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
             throw new DuplicationException("해당 이메일은 이미 가입되어 있습니다");
         }
+
+        log.info("가입한 이메일2: " + userDto.getEmail());
 
         User user;
         String password = passwordEncoder.encode(userDto.getPassword());

@@ -41,15 +41,15 @@
 </header>
 <div class="container" id="container">
     <div class="form-container sign-up">
-        <div class="form-container-box">
+        <form id="form-container-signup-box">
             <h1>Sign Up</h1>
             <span>use your email for registration</span>
-            <input type="text" placeholder="Nickname">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <input type="password" placeholder="Check Password">
-            <button class="signup-button">회원가입</button>
-        </div>
+            <input type="text" id="signup-nickname" placeholder="Nickname">
+            <input type="email" id="signup-email" placeholder="Email">
+            <input type="password" id="signup-password" placeholder="Password">
+            <input type="password" id="signup-checkPassword" placeholder="Check Password">
+            <button type="submit" id="signup-button">회원가입</button>
+        </form>
     </div>
     <div class="form-container sign-in">
         <div class="form-container-box">
@@ -58,7 +58,7 @@
             <input type="email" placeholder="Email">
             <input type="password" placeholder="Password">
             <a class="forget" href="#">Forget Your Password?</a>
-            <button class="login-button">로그인</button>
+            <button id="login-button">로그인</button>
         </div>
     </div>
     <div class="toggle-container">
