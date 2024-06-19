@@ -44,10 +44,10 @@ document.getElementById("form-container-signup-box").addEventListener("submit", 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json(); // JSON 형식으로 변환된 응답을 반환
+            response.json(); // JSON 형식으로 변환된 응답을 반환
         })
         .then(data => {
-            console.log("서버에서 받은 데이터:", data); // "회원가입 성공!"과 같은 메시지 출력
+            console.log("서버에서 받은 데이터:", data);
             alert("회원가입에 성공했습니다.");
             window.location.href = "/"; // 홈페이지로 이동
         })
