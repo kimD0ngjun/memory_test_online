@@ -401,53 +401,87 @@ body {
     display: none;
 }
 
-#scoreItem {
-    background-color: #e3e2e2;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
-    height: 2.2rem;
+#rankingList .ranking:nth-child(1) {
+    background: linear-gradient(45deg, #FFD700, #FFB14E);
+    background-clip: padding-box;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);
 }
-
-.scoreProperty {
-    text-align: center;
-    width: 5rem;
-    padding: 0.1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+#rankingList .ranking:nth-child(2) {
+    background: linear-gradient(45deg, #C0C0C0, #E0E0E0);
+    background-clip: padding-box;
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.7);
+    display: flex;
+    flex-direction: row;
 }
-
-.scoreDate {
-    text-align: center;
-    width: 7.1rem;
-    padding: 0.1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+#rankingList .ranking:nth-child(3) {
+    background: linear-gradient(45deg, #CD7F32, #D2A679);
+    background-clip: padding-box;
+    box-shadow: 0 0 10px rgba(205, 127, 50, 0.7);
+    display: flex;
+    flex-direction: row;
 }
-
-.deleteButton {
-    margin-right: 0.5rem;
+#rankingList .ranking:nth-child(n+4) {
+    background-color: #656565;
+    display: flex;
+    flex-direction: row;
+}
+.ranking {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
     color: white;
-    background-color: rgb(210, 94, 94);
-    border: 0.05rem solid rgb(150, 69, 69);
-    border-radius: 0.25rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    font-weight: bold;
 }
 
-.deleteButton:hover {
-    cursor: pointer;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
-}
+/*#scoreItem {*/
+/*    background-color: #e3e2e2;*/
+/*    border-radius: 0.5rem;*/
+/*    margin-bottom: 0.5rem;*/
+/*    height: 2.2rem;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-evenly;*/
+/*    align-items: center;*/
+/*    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);*/
+/*}*/
 
-.deleteButton:active {
-    cursor: grab;
-    transform: scale(1);
-}
+/*.scoreProperty {*/
+/*    text-align: center;*/
+/*    width: 5rem;*/
+/*    padding: 0.1rem;*/
+/*    white-space: nowrap;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*}*/
+
+/*.scoreDate {*/
+/*    text-align: center;*/
+/*    width: 7.1rem;*/
+/*    padding: 0.1rem;*/
+/*    white-space: nowrap;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*}*/
+
+/*.deleteButton {*/
+/*    margin-right: 0.5rem;*/
+/*    color: white;*/
+/*    background-color: rgb(210, 94, 94);*/
+/*    border: 0.05rem solid rgb(150, 69, 69);*/
+/*    border-radius: 0.25rem;*/
+/*    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);*/
+/*    transition: transform 0.3s ease;*/
+/*}*/
+
+/*.deleteButton:hover {*/
+/*    cursor: pointer;*/
+/*    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);*/
+/*    transform: scale(1.1);*/
+/*}*/
+
+/*.deleteButton:active {*/
+/*    cursor: grab;*/
+/*    transform: scale(1);*/
+/*}*/

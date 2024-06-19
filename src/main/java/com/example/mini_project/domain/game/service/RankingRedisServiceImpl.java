@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class RankingRedisServiceImpl implements RankingRedisService {
     public List<RankingResponseDto> getTopRankings(int topN) {
         List<Ranking> rankings = rankingRedisRepository.getRankingRange(0, topN - 1);
 
-        return rankings.stream().map(RankingResponseDto::new).toList();
+        return IntStream.range(0, rankings.size()).
+                mapToObj(i -> new RankingResponseDto(rankings.get(i), i + 1)).toList();
     }
 }
