@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j(topic = "로그인 및 JWT 생성 + 인증")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -95,7 +96,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("초기 리프레쉬토큰: " + refreshTokenValue);
 
         // username(email) - refreshToken 덮어씌우기 저장
-        redisRefreshToken.opsForValue().set(username, refreshTokenValue);
+        redisRefreshToken.opsForValue().set(username, refreshTokenValue, 7, TimeUnit.DAYS);
 
 //        response.addHeader(JwtUtil.ACCESS_TOKEN_HEADER, accessToken);
 //        jwtUtil.addJwtToCookie(refreshToken, response);
