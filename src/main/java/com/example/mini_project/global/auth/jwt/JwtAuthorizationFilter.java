@@ -124,7 +124,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 log.info("새로운 리프레쉬토큰: " + newRefreshToken);
 
                 // 새로운 리프레쉬토큰 업데이트 저장
-                redisRefreshToken.opsForValue().set(email, newRefreshToken.substring(7), 7, TimeUnit.DAYS);
+                // 7일 + 1시간을 시한으로 설정
+                long expirationTime = 24 * 7 + 1;
+                redisRefreshToken.opsForValue().set(email, newRefreshToken.substring(7), expirationTime, TimeUnit.HOURS);
 
                 try {
                     // username 담아주기
