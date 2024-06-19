@@ -83,7 +83,7 @@ document.getElementById("form-container-box").addEventListener("submit", functio
                 window.location.href = "/game"; // 홈페이지로 이동
             } else {
                 // 회원가입 실패 시 알림창 표시
-                alert("로그인 실패. 입력 정보를 확인해주세요.");
+                alert("로그인 실패. 입력 정보를 확인하거나 관리자에게 문의하세요.");
                 console.error("로그인 실패:", response.message);
             }
         })

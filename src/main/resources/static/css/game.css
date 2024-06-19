@@ -62,6 +62,7 @@ body {
     z-index: 0;
     padding: 2rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -379,7 +380,8 @@ body {
 #ranking-container {
     display: flex;
     flex-direction: column;
-    height: 20rem;
+    align-items: center;
+    flex: 9;
 }
 
 #rankingTitle {
@@ -524,53 +526,36 @@ body {
     white-space: nowrap;
 }
 
-/*#scoreItem {*/
-/*    background-color: #e3e2e2;*/
-/*    border-radius: 0.5rem;*/
-/*    margin-bottom: 0.5rem;*/
-/*    height: 2.2rem;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: space-evenly;*/
-/*    align-items: center;*/
-/*    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);*/
-/*}*/
+#util-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 
-/*.scoreProperty {*/
-/*    text-align: center;*/
-/*    width: 5rem;*/
-/*    padding: 0.1rem;*/
-/*    white-space: nowrap;*/
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*}*/
+#util-btn button {
+    background-color: #ffb02e;
+    color: #fff;
+    font-size: 14px;
+    /* padding: 10px 45px; */
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 5px 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, cursor 0.3s ease;
+    width: 130px;
+}
 
-/*.scoreDate {*/
-/*    text-align: center;*/
-/*    width: 7.1rem;*/
-/*    padding: 0.1rem;*/
-/*    white-space: nowrap;*/
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*}*/
+#util-btn button:hover {
+    background-color: #ffa500;
+    transform: scale(1.05);
+    cursor: pointer;
+}
 
-/*.deleteButton {*/
-/*    margin-right: 0.5rem;*/
-/*    color: white;*/
-/*    background-color: rgb(210, 94, 94);*/
-/*    border: 0.05rem solid rgb(150, 69, 69);*/
-/*    border-radius: 0.25rem;*/
-/*    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);*/
-/*    transition: transform 0.3s ease;*/
-/*}*/
-
-/*.deleteButton:hover {*/
-/*    cursor: pointer;*/
-/*    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);*/
-/*    transform: scale(1.1);*/
-/*}*/
-
-/*.deleteButton:active {*/
-/*    cursor: grab;*/
-/*    transform: scale(1);*/
-/*}*/
+#util-btn button:active {
+    background-color: #ff8c00;
+    transform: scale(0.95);
+    cursor: grabbing;
+}

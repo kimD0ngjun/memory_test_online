@@ -37,7 +37,7 @@ public class AuthController {
                     content = @Content(schema = @Schema(implementation = ApiMessageDto.class)))
     })
     @PostMapping("/logout")
-    public ResponseEntity<ApiMessageDto> createEmployee(
+    public ResponseEntity<ApiMessageDto> logout(
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiMessageDto apiMessageDto = authService.logout(userDetails.getUsername());
         return new ResponseEntity<>(apiMessageDto, HttpStatus.OK);
