@@ -433,7 +433,9 @@ body {
     border-radius: 5px;
     color: white;
     font-weight: bold;
+    width: 30px;
 }
+.ranking
 
 /*#scoreItem {*/
 /*    background-color: #e3e2e2;*/

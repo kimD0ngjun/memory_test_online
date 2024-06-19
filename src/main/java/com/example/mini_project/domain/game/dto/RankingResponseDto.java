@@ -11,17 +11,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RankingResponseDto {
-    private int rank;
+    private String rank;
     private String username;
     private String email;
-    private int level;
-    private int gameScore;
+    private String level;
+    private String gameScore;
 
     public RankingResponseDto(Ranking ranking, int rank) {
-        this.rank = rank;
+        this.rank = rank + "등";
         this.username = ranking.getUsername();
         this.email = ranking.getEmail();
-        this.level = ranking.getLevel();
-        this.gameScore = ranking.getGameScore();
+        this.level = ranking.getLevel() + " 단계";
+        this.gameScore = ranking.getGameScore() + " 점";
     }
 }
