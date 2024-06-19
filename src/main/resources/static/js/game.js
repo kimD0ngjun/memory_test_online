@@ -118,54 +118,47 @@ function blinkFail() {
 // 진행 과정 관련 함수
 
 async function resetGame() {
-    let name;
     let guide = confirm(
         `
     Game Over
 
-    최종 클리어 : ${stage === 1 ? `없음` : `${stage - 1} 단계`} 
+    최종 클리어 : ${stage - 1} 단계
     총합 스코어 : ${scoreCount} 점
 
-    기록을 저장하시겠습니까?
+    기록을 개인 기록에 저장하시겠습니까?
     `
     );
     if (guide) {
-        do {
-            name = prompt("이름을 입력하세요 :");
+        // 1. 기록을 먼저 저장하고
+        await addScore(stage, scoreCount)
 
-            if (name === null) {
-                alert("기록이 저장되지 않습니다. 게임을 초기화합니다");
-                location.reload();
-            }
+        // 2. 랭킹 등재여부 분기
+        let ranking = confirm(`최종 클리어 : ${stage - 1} 단계\n총합 스코어 : ${scoreCount}\n\n기록을 랭킹에 등재하시겠습니까?`);
 
-            if (name.trim().length === 0) {
-                alert("최소 1자 이상의 이름을 입력해주세요.");
-            }
-        } while (name.trim().length === 0);
-        addScore(name, stage, scoreCount);
-        alert("게임을 초기화합니다");
-    } else {
-        alert("게임을 초기화합니다");
+        if (ranking) {
+            await addRanking(stage, scoreCount);
+        }
     }
+
+    alert("게임을 초기화합니다");
+
     location.reload();
 }
 
-function currentDate() {
-    let currentDate = new Date();
-    let year = currentDate.getFullYear();
-    let month = currentDate.getMonth() + 1;
-    let day = currentDate.getDate();
-
-    month = month < 10 ? "0" + month : month;
-    day = day < 10 ? "0" + day : day;
-
-    let formattedDate = year + "." + month + "." + day;
-    return formattedDate;
-}
+// function currentDate() {
+//     let currentDate = new Date();
+//     let year = currentDate.getFullYear();
+//     let month = currentDate.getMonth() + 1;
+//     let day = currentDate.getDate();
+//
+//     month = month < 10 ? "0" + month : month;
+//     day = day < 10 ? "0" + day : day;
+//
+//     return year + "." + month + "." + day;
+// }
 
 async function countTime(stage) {
-    let startTime = stage + 5;
-    limitTime.innerText = startTime;
+    limitTime.innerText = stage + 5;
     limitTime.classList.add("countStart");
     timeUnit.classList.add("countStart");
 
@@ -404,97 +397,107 @@ async function checkAnswer() {
 
 // 점수 기록 관련 함수
 
-function addScore(name, stage, scoreCount) {
-    let scoreList = document.getElementById("scoreList");
+async function addScore(stage, scoreCount) {
+    const formData = {
+        level: stage - 1,
+        gameScore: scoreCount
+    }
 
-    let savedScores = JSON.parse(localStorage.getItem("scores")) || [];
-
-    let scoreItem = document.createElement("li");
-    scoreItem.id = "scoreItem";
-
-    let scoreName = document.createElement("div");
-    scoreName.innerText = `${name}`;
-    scoreName.className = "scoreProperty";
-
-    let scoreDate = document.createElement("div");
-    scoreDate.innerText = `${currentDate()}`;
-    scoreDate.className = "scoreDate";
-
-    let scoreStage = document.createElement("div");
-    scoreStage.innerText = `${stage === 1 ? `없음` : `${stage - 1} 단계`}`;
-    scoreStage.className = "scoreProperty";
-
-    let scoreAmount = document.createElement("div");
-    scoreAmount.innerText = `${scoreCount} 점`;
-    scoreAmount.className = "scoreProperty";
-
-    let deleteButton = document.createElement("button");
-    deleteButton.innerText = "x";
-    deleteButton.className = "deleteButton";
-    deleteButton.addEventListener("click", function () {
-        scoreList.removeChild(scoreItem);
-        let updatedScores = savedScores.filter(
-            (score) => score.name !== name && score.scoreCount !== scoreCount
-        );
-        savedScores = updatedScores;
-        localStorage.setItem("scores", JSON.stringify(savedScores));
-    });
-
-    scoreItem.appendChild(scoreName);
-    scoreItem.appendChild(scoreDate);
-    scoreItem.appendChild(scoreStage);
-    scoreItem.appendChild(scoreAmount);
-    scoreItem.appendChild(deleteButton);
-
-    scoreList.appendChild(scoreItem);
-
-    let newScore = { name, stage, scoreCount, date: currentDate() };
-    savedScores.push(newScore);
-    localStorage.setItem("scores", JSON.stringify(savedScores));
-}
-
-window.onload = function () {
-    let savedScores = JSON.parse(localStorage.getItem("scores")) || [];
-    let scoreList = document.getElementById("scoreList");
-
-    savedScores.forEach((score) => {
-        let scoreItem = document.createElement("li");
-        scoreItem.id = "scoreItem";
-
-        let scoreName = document.createElement("div");
-        scoreName.innerText = `${score.name}`;
-        scoreName.className = "scoreProperty";
-
-        let scoreDate = document.createElement("div");
-        scoreDate.innerText = `${score.date}`;
-        scoreDate.className = "scoreDate";
-
-        let scoreStage = document.createElement("div");
-        scoreStage.innerText = `${
-            score.stage === 1 ? `없음` : `${score.stage - 1} 단계`
-        }`;
-        scoreStage.className = "scoreProperty";
-
-        let scoreAmount = document.createElement("div");
-        scoreAmount.innerText = `${score.scoreCount} 점`;
-        scoreAmount.className = "scoreProperty";
-
-        let deleteButton = document.createElement("button");
-        deleteButton.innerText = "x";
-        deleteButton.className = "deleteButton";
-        deleteButton.addEventListener("click", function () {
-            scoreList.removeChild(scoreItem);
-            let updatedScores = savedScores.filter((s) => s.name !== score.name);
-            savedScores = updatedScores;
-            localStorage.setItem("scores", JSON.stringify(savedScores));
+    try {
+        const response = await fetch("/mini/game/record", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
         });
 
-        scoreItem.appendChild(scoreName);
-        scoreItem.appendChild(scoreDate);
-        scoreItem.appendChild(scoreStage);
-        scoreItem.appendChild(scoreAmount);
-        scoreItem.appendChild(deleteButton);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-        scoreList.appendChild(scoreItem);
-    });
-};
+        const data = await response.json();
+        console.log("서버에서 받은 데이터:", data);
+        alert("기록이 저장됐습니다.");
+    } catch (error) {
+        console.error("기록 저장 실패:", error);
+        alert("기록 저장에 실패했습니다. 게임을 초기화합니다.");
+        window.location.href = "/game"; // 홈페이지로 이동
+    }
+}
+
+
+async function addRanking(stage, scoreCount) {
+    const formData = {
+        level: stage - 1,
+        gameScore: scoreCount
+    };
+
+    try {
+        const response = await fetch("/mini/game/ranking", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log("서버에서 받은 데이터:", data);
+        alert("랭킹에 등재됐습니다.");
+    } catch (error) {
+        console.error("랭킹 등재 실패:", error);
+        alert("랭킹 등재에 실패했습니다. 게임을 초기화합니다.");
+        window.location.href = "/game"; // 홈페이지로 이동
+    }
+}
+
+// window.onload = function () {
+//     let savedScores = JSON.parse(localStorage.getItem("scores")) || [];
+//     let scoreList = document.getElementById("scoreList");
+//
+//     savedScores.forEach((score) => {
+//         let scoreItem = document.createElement("li");
+//         scoreItem.id = "scoreItem";
+//
+//         let scoreName = document.createElement("div");
+//         scoreName.innerText = `${score.name}`;
+//         scoreName.className = "scoreProperty";
+//
+//         let scoreDate = document.createElement("div");
+//         scoreDate.innerText = `${score.date}`;
+//         scoreDate.className = "scoreDate";
+//
+//         let scoreStage = document.createElement("div");
+//         scoreStage.innerText = `${
+//             score.stage === 1 ? `없음` : `${score.stage - 1} 단계`
+//         }`;
+//         scoreStage.className = "scoreProperty";
+//
+//         let scoreAmount = document.createElement("div");
+//         scoreAmount.innerText = `${score.scoreCount} 점`;
+//         scoreAmount.className = "scoreProperty";
+//
+//         let deleteButton = document.createElement("button");
+//         deleteButton.innerText = "x";
+//         deleteButton.className = "deleteButton";
+//         deleteButton.addEventListener("click", function () {
+//             scoreList.removeChild(scoreItem);
+//             let updatedScores = savedScores.filter((s) => s.name !== score.name);
+//             savedScores = updatedScores;
+//             localStorage.setItem("scores", JSON.stringify(savedScores));
+//         });
+//
+//         scoreItem.appendChild(scoreName);
+//         scoreItem.appendChild(scoreDate);
+//         scoreItem.appendChild(scoreStage);
+//         scoreItem.appendChild(scoreAmount);
+//         scoreItem.appendChild(deleteButton);
+//
+//         scoreList.appendChild(scoreItem);
+//     });
+// };
