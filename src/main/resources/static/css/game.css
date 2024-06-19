@@ -393,36 +393,50 @@ body {
 #rankingList {
     list-style-type: none;
     padding: 0.1rem;
-    max-height: 13.5rem;
-    overflow-y: auto;
 }
 
 #rankingList:empty {
     display: none;
 }
 
-#rankingList .ranking:nth-child(1) {
+/*#rankingList .ranking:nth-child(1) {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    color: black;*/
+/*    font-size: 12px;*/
+/*}*/
+
+#rankingList .ranking:nth-child(2) {
     background: linear-gradient(45deg, #FFD700, #FFB14E);
     background-clip: padding-box;
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
     display: flex;
     flex-direction: row;
+    color: black;
+    font-weight: bold;
 }
-#rankingList .ranking:nth-child(2) {
+
+#rankingList .ranking:nth-child(3) {
     background: linear-gradient(45deg, #C0C0C0, #E0E0E0);
     background-clip: padding-box;
     box-shadow: 0 0 10px rgba(192, 192, 192, 0.7);
     display: flex;
     flex-direction: row;
+    color: black;
+    font-weight: bold;
 }
-#rankingList .ranking:nth-child(3) {
+
+#rankingList .ranking:nth-child(4) {
     background: linear-gradient(45deg, #CD7F32, #D2A679);
     background-clip: padding-box;
     box-shadow: 0 0 10px rgba(205, 127, 50, 0.7);
     display: flex;
     flex-direction: row;
+    color: black;
+    font-weight: bold;
 }
-#rankingList .ranking:nth-child(n+4) {
+
+#rankingList .ranking:nth-child(n+5) {
     background-color: #656565;
     display: flex;
     flex-direction: row;
@@ -432,10 +446,83 @@ body {
     margin: 5px 0;
     border-radius: 5px;
     color: white;
-    font-weight: bold;
-    width: 30px;
+    width: 400px;
+    justify-content: center;
 }
-.ranking
+
+.ranking p:nth-child(1) {
+    flex: 1; /* 비율 설정 */
+    text-align: left;
+}
+
+.ranking p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.ranking p:nth-child(3) {
+    flex: 5; /* 비율 설정 */
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.ranking p:nth-child(4) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: right;
+}
+
+.ranking p:nth-child(5) {
+    flex: 5; /* 비율 설정 */
+    text-align: right;
+}
+
+.ranking p {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.ranking-explain {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 400px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-size: 14px;
+}
+
+.ranking-explain p:nth-child(1) {
+    flex: 1; /* 비율 설정 */
+    text-align: left;
+}
+
+.ranking-explain p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.ranking-explain p:nth-child(3) {
+    flex: 5; /* 비율 설정 */
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.ranking-explain p:nth-child(4) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: right;
+}
+
+.ranking-explain p:nth-child(5) {
+    flex: 5; /* 비율 설정 */
+    text-align: right;
+}
+
+.ranking-explain p {
+    margin: 0 10px;
+    white-space: nowrap;
+}
 
 /*#scoreItem {*/
 /*    background-color: #e3e2e2;*/
