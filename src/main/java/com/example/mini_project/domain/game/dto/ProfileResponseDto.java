@@ -22,8 +22,12 @@ public class ProfileResponseDto {
     public ProfileResponseDto(User user, List<RecordResponseDto> records) {
         this.email = user.getEmail();
         this.username = user.getUsername();
-        this.averageLevel = calculateAverageLevel(records) + " 단계";
-        this.averageScore = calculateAverageScore(records) + "점 ";
+        this.averageLevel = formatDouble(calculateAverageLevel(records)) + " 단계";
+        this.averageScore = formatDouble(calculateAverageScore(records)) + "점 ";
+    }
+
+    private String formatDouble(double value) {
+        return String.format("%.1f", value);
     }
 
     private double calculateAverageLevel(List<RecordResponseDto> records) {

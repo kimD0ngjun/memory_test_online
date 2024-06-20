@@ -62,16 +62,28 @@
         <div id="profileTitle">MY PROFILE</div>
         <ul id="profileList">
             <li>
-                <p class="profile-content" th:text="${profile.username}"></p>
+                <p class="profile-content">
+                    <span class="label">닉네임: </span>
+                    <span class="profile-value" th:text="${profile.username}"></span>
+                </p>
             </li>
             <li>
-                <p class="profile-content" th:text="${profile.email}"></p>
+                <p class="profile-content">
+                    <span class="label">이메일: </span>
+                    <span class="profile-value" th:text="${profile.email}"></span>
+                </p>
             </li>
             <li>
-                <p class="profile-content" th:text="${profile.averageLevel}"></p>
+                <p class="profile-content">
+                    <span class="label">평균 레벨: </span>
+                    <span class="profile-value" th:text="${profile.averageLevel}"></span>
+                </p>
             </li>
             <li>
-                <p class="profile-content" th:text="${profile.averageScore}"></p>
+                <p class="profile-content">
+                    <span class="label">평균 점수: </span>
+                    <span class="profile-value" th:text="${profile.averageScore}"></span>
+                </p>
             </li>
         </ul>
     </span>
