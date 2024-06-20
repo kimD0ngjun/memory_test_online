@@ -1,11 +1,9 @@
 package com.example.mini_project.global.auth.entity;
 
-import com.example.mini_project.domain.entity.UserRoleEnum;
-import com.example.mini_project.global.auth.entity.TokenType;
+import com.example.mini_project.domain.user.entity.UserRoleEnum;
 import lombok.Getter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 public class TokenPayload {

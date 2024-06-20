@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/css/IndexLogo.svg" />
+    <title>Error Page</title>
+    <link rel="stylesheet" href="/css/error.css">
+</head>
+<body>
+<header class="explain-container">
+    <div id="logo" class="header-item">
+        <img id="logo-img" src="/css/Logo.svg" alt="logo" />
+    </div>
+    <div>
+        <div id="myProfile" class="header-item">
+            <a
+                    class="iconBox"
+                    href="https://github.com/kimD0ngjun/memory_test"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Github.svg" alt="gitHub" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="mailto:chickentasty0112@gmail.com"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Mail.svg" alt="gmail" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Instagram.svg" alt="instagram" />
+            </a>
+        </div>
+        <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
+    </div>
+</header>
+<div class="container" id="container">
+    <img class="error-img" alt="Error!" src="/css/error.svg" />
+    <h3 class="error-msg" th:text="${error}">Error message</h3>
+    <button class="reset-btn" type="button">메인화면으로 돌아가기</button>
+</div>
+<footer class="explain-container"></footer>
+</body>
+<script>
+    // 모든 쿠키 삭제 함수
+    function deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
+    }
+
+    // reset-btn 클릭 이벤트 핸들러
+    document.querySelector('.reset-btn').addEventListener('click', () => {
+        deleteAllCookies();  // 모든 쿠키 삭제
+        window.location.href = "/";  // 루트 경로로 라우팅
+    });
+</script>
+</html>

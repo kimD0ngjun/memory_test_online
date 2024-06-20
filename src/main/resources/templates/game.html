@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/css/IndexLogo.svg" />
+    <title>Memory Test</title>
+    <link rel="stylesheet" href="/css/game.css" />
+</head>
+<body>
+<header class="explain-container">
+    <div id="logo" class="header-item">
+        <img id="logo-img" src="/css/Logo.svg" alt="logo" />
+        <p id="clickLogo">로고를 클릭해서 튜토리얼을 확인해주세요!</p>
+    </div>
+    <ol id="explainList" class="header-item">
+        <li class="explainItem">간단한 기억력 테스트 게임입니다</li>
+        <li class="explainItem">Play 버튼을 누르면 3번의 신호 후, 시작합니다</li>
+        <li class="explainItem">
+            순차적으로 제시되는 버튼을 기억 후, 같은 순서로 클릭하세요
+        </li>
+        <li class="explainItem">
+            잘못 누르거나 제한시간이 초과되면 라이프가 차감됩니다
+        </li>
+        <li class="explainItem">
+            3개의 라이프가 전부 차감되면 게임 오버됩니다
+        </li>
+        <li class="explainItem">
+            오답일 경우 X 표시가, 정답일 경우 O 표시가 뜹니다
+        </li>
+        <li id="warning" class="explainItem">
+            제한시간이 동작할 때의 버튼 클릭만이 답안으로 인정됩니다. 주의하세요!
+        </li>
+        <li class="explainItem">
+            게임 도중, REPLAY 버튼을 누르면 현재 단계에서 게임이 초기화됩니다
+        </li>
+        <li class="explainItem">
+            점수를 저장하고 랭킹에 올려 다른 사람들과의 기록을 비교할 수 있습니다
+        </li>
+        <li class="explainItem">즐거운 하루 되세요!</li>
+    </ol>
+    <div id="myProfile" class="header-item">
+        <a
+                class="iconBox"
+                href="https://github.com/kimD0ngjun/memory_test"
+                target="_blank"
+        >
+            <img class="icon" src="/css/Github.svg" alt="gitHub" />
+        </a>
+        <a
+                class="iconBox"
+                href="mailto:chickentasty0112@gmail.com"
+                target="_blank"
+        >
+            <img class="icon" src="/css/Mail.svg" alt="gmail" />
+        </a>
+        <a
+                class="iconBox"
+                href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                target="_blank"
+        >
+            <img class="icon" src="/css/Instagram.svg" alt="instagram" />
+        </a>
+    </div>
+    <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
+</header>
+
+<div class="gamePlay-container">
+    <div class="game-container">
+        <section id="top" class="tab">
+            <div id="gameMessage"></div>
+            <button id="playButton">PLAY</button>
+        </section>
+        <section id="gameButton" class="tab">
+            <div id="first-row" class="row">
+                <button id="1" class="memoryButton"></button>
+                <button id="2" class="memoryButton"></button>
+                <button id="3" class="memoryButton"></button>
+                <button id="4" class="memoryButton"></button>
+                <button id="5" class="memoryButton"></button>
+            </div>
+            <div id="second-row" class="row">
+                <button id="6" class="memoryButton"></button>
+                <button id="7" class="memoryButton"></button>
+                <button id="8" class="memoryButton"></button>
+                <button id="9" class="memoryButton"></button>
+                <button id="10" class="memoryButton"></button>
+            </div>
+            <div id="third-row" class="row">
+                <button id="11" class="memoryButton"></button>
+                <button id="12" class="memoryButton"></button>
+                <button id="13" class="memoryButton"></button>
+                <button id="14" class="memoryButton"></button>
+                <button id="15" class="memoryButton"></button>
+            </div>
+            <div id="fourth-row" class="row">
+                <button id="16" class="memoryButton"></button>
+                <button id="17" class="memoryButton"></button>
+                <button id="18" class="memoryButton"></button>
+                <button id="19" class="memoryButton"></button>
+                <button id="20" class="memoryButton"></button>
+            </div>
+            <div id="fifth-row" class="row">
+                <button id="21" class="memoryButton"></button>
+                <button id="22" class="memoryButton"></button>
+                <button id="23" class="memoryButton"></button>
+                <button id="24" class="memoryButton"></button>
+                <button id="25" class="memoryButton"></button>
+            </div>
+        </section>
+        <section id="status" class="tab">
+            <div id="score" class="status">
+                <div class="system">SCORE</div>
+                <div id="scoreCount" class="board">00000</div>
+            </div>
+            <div id="limit-time" class="status">
+                <div class="system">LIMIT TIME</div>
+                <div id="countTimer">
+                    <span id="timeCount" class="board">0</span>
+                    <span id="timeUnit">s</span>
+                </div>
+            </div>
+            <div id="life" class="status">
+                <div class="system">LIFE</div>
+                <div id="lifeCount" class="board">❤️❤️❤️</div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<footer class="ranking-container">
+    <div id="ranking-container">
+        <div id="recordTitle">RANKING BOARD</div>
+        <ul id="recordList">
+            <li class="record-explain">
+                <p>등수</p>
+                <p>닉네임</p>
+                <p>이메일</p>
+                <p>단계</p>
+                <p>점수</p>
+            </li>
+            <li class="record" th:each="ranking: ${rankings}">
+                <p th:text="${ranking.rank}">등수</p>
+                <p th:text="${ranking.username}">회원명</p>
+                <p th:text="${ranking.email}">회원이메일</p>
+                <p th:text="${ranking.level}">레벨</p>
+                <p th:text="${ranking.gameScore}">점수</p>
+            </li>
+        </ul>
+    </div>
+    <div id="util-btn">
+        <button id="my-page-btn" type="button">MY PAGE</button>
+        <button id="logout-btn" type="button">LOG OUT</button>
+    </div>
+</footer>
+<script src="/js/game.js"></script>
+<script>
+    // 모든 쿠키 삭제 함수
+    function deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
+    }
+
+    // 로그아웃 처리
+    document.querySelector('#logout-btn').addEventListener('click', () => {
+        fetch('/mini/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                alert("성공적으로 로그아웃됐습니다.")
+                window.location.href = "/"; // 루트 경로로 이동
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("비정상적인 로그아웃 처리! 관리자에게 문의하세요.")
+            });
+
+        deleteAllCookies();  // 모든 쿠키 삭제
+    });
+
+    document.querySelector('#my-page-btn').addEventListener('click', () => {
+        window.location.href = "/mypage";  // 루트 경로로 라우팅
+    });
+</script>
+</body>
+</html>
