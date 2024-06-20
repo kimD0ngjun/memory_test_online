@@ -1,6 +1,7 @@
 package com.example.mini_project.domain.user.controller;
 
 import com.example.mini_project.domain.user.dto.UserDto;
+import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import com.example.mini_project.domain.user.service.UserService;
 import com.example.mini_project.global.dto.ApiMessageDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "User 컨트롤러", description = "회원 기능을 전반적으로 담당하는 컨트롤러")
@@ -35,7 +37,7 @@ public class UserController {
                     content = @Content(schema = @Schema(implementation = ApiMessageDto.class)))
     })
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> createEmployee(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         UserDto createdUser = userService.createUser(userDto);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
@@ -61,13 +63,17 @@ public class UserController {
 //        return ResponseEntity.ok(allEmployees);
 //    }
 //
-//    // Update Employee
-//    @PutMapping("/{userId}")
-//    public ResponseEntity<UserDto> updateEmployee(@PathVariable Long userId,
-//                                                  @RequestBody UserDto updatedEmployee) {
-//        UserDto userDto = userService.updateUser(userId, updatedEmployee);
-//        return ResponseEntity.ok(userDto);
-//    }
+    // Update Employee
+    @PutMapping("/update")
+    public ResponseEntity<ApiMessageDto> updateUsername(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @RequestBody UserDto updatedUsername) {
+        userService.updateUsername(userDetails.getUser(), updatedUsername);
+        return new ResponseEntity<>(
+                new ApiMessageDto(HttpStatus.OK.value(), "닉네임이 변경됐습니다."),
+                HttpStatus.OK
+        );
+    }
 //
 //    // Delete Employee
 //    @DeleteMapping("/{userId}")

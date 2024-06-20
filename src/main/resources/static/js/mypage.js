@@ -1,5 +1,4 @@
 // 기록 삭제
-
 document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelectorAll('.deleteButton').forEach(button => {
         button.addEventListener('click', () => {
@@ -38,3 +37,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 });
+
+// 닉네임 변경

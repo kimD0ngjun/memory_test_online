@@ -47,7 +47,5 @@ public class User {
 
     public void updateUser(UserDto userDto) {
         this.username = userDto.getUsername();
-        this.password = userDto.getPassword();
-        this.email = userDto.getEmail();
     }
 }
