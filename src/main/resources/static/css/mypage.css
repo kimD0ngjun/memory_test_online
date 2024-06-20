@@ -101,6 +101,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 15px;
+    height: 25rem;
 }
 
 #recordTitle {
@@ -114,7 +116,6 @@ body{
 #recordList {
     list-style-type: none;
     padding: 0.1rem;
-    height: 25rem;
     overflow-y: auto;
 }
 
@@ -221,6 +222,11 @@ body{
 
 /* 개인 프로필 확인 */
 
+.my-profile-container {
+    margin-left: 15px;
+    height: 25rem;
+}
+
 #profileTitle {
     text-align: center;
     font-size: 1.1rem;
@@ -234,7 +240,6 @@ body{
     box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);
     list-style-type: circle;
     padding: 3rem;
-    height: 25rem;
     width: 400px;
 }
 
@@ -316,5 +321,15 @@ body{
     .explain-container,
     .footer-container {
         display: none;
+    }
+}
+
+@media (max-width: 58rem) {
+    .profile-container {
+        flex-direction: column;
+    }
+    .my-record-container, .my-profile-container {
+        margin: 15px 0;
+        height: 13rem;
     }
 }
