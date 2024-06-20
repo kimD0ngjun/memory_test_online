@@ -114,6 +114,8 @@ body{
 #recordList {
     list-style-type: none;
     padding: 0.1rem;
+    max-height: 25rem;
+    overflow-y: auto;
 }
 
 #recordList:empty {
@@ -143,9 +145,14 @@ body{
     flex: 8; /* 비율 설정 */
     text-align: center;
 }
+
 .record-explain p:nth-child(4) {
     flex: 2; /* 비율 설정 */
     text-align: center;
+}
+
+.record-explain p {
+    font-size: 14px;
 }
 
 .record {
@@ -155,6 +162,8 @@ body{
     width: 400px;
     display: flex;
     flex-direction: row;
+    background-color: #e3e2e2;
+    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);
 }
 
 .record p:nth-child(1) {
@@ -174,6 +183,38 @@ body{
 .record p:nth-child(4) {
     flex: 2; /* 비율 설정 */
     text-align: center;
-    background-color: #ce4b40;
-    color: #ce4b40;
+}
+
+.record p {
+    font-weight: bold;
+}
+
+.deleteButton {
+    user-select: none;
+    /*color: rgb(210, 94, 94);;*/
+    color: white;
+    font-weight: bold;
+    background-color: rgb(210, 94, 94);
+    border: 0.05rem solid rgb(150, 69, 69);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+
+.deleteButton:active {
+    cursor: grab;
+    transform: scale(1);
+}
+
+.hidden {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

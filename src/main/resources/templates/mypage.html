@@ -53,7 +53,8 @@
                 <p th:text="${record.level}">단계</p>
                 <p th:text="${record.gameScore}">점수</p>
                 <p th:text="${record.registration}">날짜</p>
-                <p th:text="${record.id}">아이디(삭제용 버튼 활용)</p>
+                <p class="deleteButton" >X</p>
+                <p class="hidden" th:text="${record.id}"></p>
             </li>
         </ul>
     </span>
