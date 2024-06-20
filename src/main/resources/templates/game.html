@@ -164,7 +164,7 @@
         }
     }
 
-    // reset-btn 클릭 이벤트 핸들러
+    // 로그아웃 처리
     document.querySelector('#logout-btn').addEventListener('click', () => {
         fetch('/mini/user/logout', {
             method: 'POST',
@@ -173,7 +173,6 @@
             },
         })
             .then(response => {
-                // 여기서 응답을 처리할 수 있습니다.
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -186,6 +185,10 @@
             });
 
         deleteAllCookies();  // 모든 쿠키 삭제
+    });
+
+    document.querySelector('#my-page-btn').addEventListener('click', () => {
+        window.location.href = "/mypage";  // 루트 경로로 라우팅
     });
 </script>
 </body>
