@@ -103,8 +103,10 @@ body {
 
 #clickLogo {
     text-align: center;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     animation: pulsate 4s 4s 1.5;
+    font-size: 0.8rem;
+    color: #777777;
 }
 
 @keyframes pulsate {
@@ -465,6 +467,8 @@ body {
 .record p:nth-child(2) {
     flex: 5; /* 비율 설정 */
     text-align: center;
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;
 }
 
 .record p:nth-child(3) {
