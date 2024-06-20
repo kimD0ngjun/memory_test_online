@@ -83,3 +83,97 @@ body{
     font-weight: 500;
     text-align: center;
 }
+
+/* 가운데 부분의 기록 파트 */
+
+.profile-container {
+    height: 100vh;
+    width: 33.333333%;
+    z-index: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-record-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#recordTitle {
+    text-align: center;
+    font-size: 1.1rem;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+#recordList {
+    list-style-type: none;
+    padding: 0.1rem;
+}
+
+#recordList:empty {
+    display: none;
+}
+
+.record-explain {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+}
+
+.record-explain p:nth-child(1) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p:nth-child(3) {
+    flex: 8; /* 비율 설정 */
+    text-align: center;
+}
+.record-explain p:nth-child(4) {
+    flex: 2; /* 비율 설정 */
+    text-align: center;
+}
+
+.record {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+}
+
+.record p:nth-child(1) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record p:nth-child(3) {
+    flex: 8; /* 비율 설정 */
+    text-align: center;
+}
+.record p:nth-child(4) {
+    flex: 2; /* 비율 설정 */
+    text-align: center;
+    background-color: #ce4b40;
+    color: #ce4b40;
+}

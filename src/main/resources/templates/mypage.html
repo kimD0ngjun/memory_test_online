@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,10 +41,23 @@
 </header>
 <div class="profile-container">
     <span class="my-record-container">
-
+        <div id="recordTitle">RECORD BOARD</div>
+        <ul id="recordList">
+            <li class="record-explain">
+                <p>단계</p>
+                <p>점수</p>
+                <p>날짜</p>
+                <p>삭제</p>
+            </li>
+            <li class="record" th:each="record: ${records}">
+                <p th:text="${record.level}">단계</p>
+                <p th:text="${record.gameScore}">점수</p>
+                <p th:text="${record.registration}">날짜</p>
+                <p th:text="${record.id}">아이디(삭제용 버튼 활용)</p>
+            </li>
+        </ul>
     </span>
     <span class="my-profile-container">
-
 
     </span>
 </div>

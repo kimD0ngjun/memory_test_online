@@ -127,16 +127,16 @@
 
 <footer class="ranking-container">
     <div id="ranking-container">
-        <div id="rankingTitle">RANKING BOARD</div>
-        <ul id="rankingList">
-            <li class="ranking-explain">
+        <div id="recordTitle">RANKING BOARD</div>
+        <ul id="recordList">
+            <li class="record-explain">
                 <p>등수</p>
                 <p>닉네임</p>
                 <p>이메일</p>
                 <p>단계</p>
                 <p>점수</p>
             </li>
-            <li class="ranking" th:each="ranking: ${rankings}">
+            <li class="record" th:each="ranking: ${rankings}">
                 <p th:text="${ranking.rank}">등수</p>
                 <p th:text="${ranking.username}">회원명</p>
                 <p th:text="${ranking.email}">회원이메일</p>
