@@ -27,10 +27,11 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
 
         log.info("가입한 이메일: " + userDto.getEmail());
+        log.info("이미 가입되어 있는가: " + userRepository.findByEmail(userDto.getEmail()).isPresent());
 
         // 이메일 중복 처리 예외
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-            throw new DuplicationException("해당 이메일은 이미 가입되어 있습니다");
+            throw new IllegalArgumentException("해당 이메일은 이미 가입되어 있습니다");
         }
 
         log.info("가입한 이메일2: " + userDto.getEmail());

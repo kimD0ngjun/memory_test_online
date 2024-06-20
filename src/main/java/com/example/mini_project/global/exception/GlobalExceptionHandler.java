@@ -16,24 +16,24 @@ public class GlobalExceptionHandler {
         return "redirect:/error";
     }
 
-//    @ExceptionHandler
-//    public ResponseEntity<ApiMessageDto> handleResourceNotFoundException(ResourceNotFoundException nfe) {
-//        return ResponseEntity
-//                .status(HttpStatus.NOT_FOUND)
-//                .body(new ApiMessageDto(HttpStatus.NOT_FOUND.value(), nfe.getMessage()));
-//    }
-//
-//    @ExceptionHandler
-//    public ResponseEntity<ApiMessageDto> handleDuplicationException(DuplicationException de) {
-//        return ResponseEntity
-//                .status(HttpStatus.CONFLICT)
-//                .body(new ApiMessageDto(HttpStatus.CONFLICT.value(), de.getMessage()));
-//    }
-//
-//    @ExceptionHandler
-//    public ResponseEntity<ApiMessageDto> handleIllegalArgumentException(IllegalArgumentException iae) {
-//        return ResponseEntity
-//                .status(HttpStatus.BAD_REQUEST)
-//                .body(new ApiMessageDto(HttpStatus.BAD_REQUEST.value(), iae.getMessage()));
-//    }
+    @ExceptionHandler
+    public ResponseEntity<ApiMessageDto> handleResourceNotFoundException(ResourceNotFoundException nfe) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ApiMessageDto(HttpStatus.NOT_FOUND.value(), nfe.getMessage()));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ApiMessageDto> handleDuplicationException(DuplicationException de) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new ApiMessageDto(HttpStatus.CONFLICT.value(), de.getMessage()));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ApiMessageDto> handleIllegalArgumentException(IllegalArgumentException iae) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ApiMessageDto(HttpStatus.BAD_REQUEST.value(), iae.getMessage()));
+    }
 }
