@@ -52,7 +52,7 @@
             <li class="record" th:each="record: ${records}">
                 <p th:text="${record.level}">단계</p>
                 <p th:text="${record.gameScore}">점수</p>
-                <p th:text="${record.registration}">날짜</p>
+                <p class="date" th:text="${record.registration}">날짜</p>
                 <p class="deleteButton" >X</p>
                 <p class="hidden" th:text="${record.id}"></p>
             </li>
@@ -63,5 +63,6 @@
     </span>
 </div>
 <footer class="explain-container"></footer>
+<script src="/js/mypage.js"></script>
 </body>
 </html>
