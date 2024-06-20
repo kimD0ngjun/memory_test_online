@@ -11,13 +11,13 @@ import java.time.format.DateTimeFormatter;
 public class RecordResponseDto {
     private Long id;
     private int level;
-    private String gameScore;
+    private int gameScore;
     private String registration;
 
     public RecordResponseDto(Record record) {
         this.id = record.getId();
         this.level = record.getLevel();
-        this.gameScore = record.getGameScore() + " 점";
+        this.gameScore = record.getGameScore();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd - HH:mm:ss");
         this.registration = record.getCreatedAt().format(formatter);

@@ -1,5 +1,6 @@
 package com.example.mini_project.domain.page;
 
+import com.example.mini_project.domain.game.dto.ProfileResponseDto;
 import com.example.mini_project.domain.game.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.dto.RecordResponseDto;
 import com.example.mini_project.domain.game.service.RankingRedisService;
@@ -45,6 +46,7 @@ public class PageController {
             ) {
         User user = userDetails.getUser();
         List<RecordResponseDto> records = recordService.getRecords(user);
+        ProfileResponseDto profile = new ProfileResponseDto(user, records);
 
         model.addAttribute("user", user);
         model.addAttribute("records", records);
