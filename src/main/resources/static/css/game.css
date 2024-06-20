@@ -161,6 +161,11 @@ body {
     margin-bottom: 1.2rem;
 }
 
+#warning {
+    font-weight: bold;
+    color: #bd0000;
+}
+
 #myProfile {
     display: flex;
     flex-direction: row;

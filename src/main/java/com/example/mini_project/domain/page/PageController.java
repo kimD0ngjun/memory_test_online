@@ -31,6 +31,11 @@ public class PageController {
         return "auth";
     }
 
+    @GetMapping("/tutorial")
+    public String getTutorialPage() {
+        return "tutorial";
+    }
+
     @GetMapping("/game")
     public String getGamePage(Model model) {
         List<RankingResponseDto> rankings = rankingService.getTopRankings(TOP_RANKING);
