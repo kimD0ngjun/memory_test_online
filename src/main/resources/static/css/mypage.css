@@ -332,4 +332,44 @@ body{
         margin: 15px 0;
         height: 13rem;
     }
+    .my-record-container {
+        flex: 2
+    }
+    .my-profile-container {
+        flex: 2.5
+    }
+    #name-btn {
+        flex: 1
+    }
+}
+
+#name-btn {
+    display: flex;
+    justify-content: center;
+}
+
+#name-button {
+    background-color: #ffb02e;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, cursor 0.3s ease;
+}
+
+#name-button:hover {
+    background-color: #ffa500;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#name-button:active {
+    background-color: #ff8c00;
+    transform: scale(0.95);
+    cursor: grabbing;
 }
