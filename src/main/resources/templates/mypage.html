@@ -62,7 +62,54 @@
 
     </span>
 </div>
-<footer class="explain-container"></footer>
+<footer class="footer-container">
+    <div id="space-container">
+    </div>
+    <div id="util-btn">
+        <button id="my-page-btn" type="button">GAME PAGE</button>
+        <button id="logout-btn" type="button">LOG OUT</button>
+    </div>
+</footer>
 <script src="/js/mypage.js"></script>
+<script>
+    // 모든 쿠키 삭제 함수
+    function deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
+    }
+
+    // 로그아웃 처리
+    document.querySelector('#logout-btn').addEventListener('click', () => {
+        fetch('/mini/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                alert("성공적으로 로그아웃됐습니다.")
+                window.location.href = "/"; // 루트 경로로 이동
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("비정상적인 로그아웃 처리! 관리자에게 문의하세요.")
+            });
+
+        deleteAllCookies();  // 모든 쿠키 삭제
+    });
+
+    document.querySelector('#my-page-btn').addEventListener('click', () => {
+        window.location.href = "/game";  // 루트 경로로 라우팅
+    });
+</script>
 </body>
 </html>
