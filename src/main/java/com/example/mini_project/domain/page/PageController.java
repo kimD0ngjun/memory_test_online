@@ -48,9 +48,10 @@ public class PageController {
         List<RecordResponseDto> records = recordService.getRecords(user);
         ProfileResponseDto profile = new ProfileResponseDto(user, records);
 
-        model.addAttribute("user", user);
+        model.addAttribute("profile", profile);
         model.addAttribute("records", records);
 
+        log.info(profile.toString());
         log.info(records.toString());
 
         return "mypage";
