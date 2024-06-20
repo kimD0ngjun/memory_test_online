@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         );
 
         profile.updateUser(updatedUser);
-        userRepository.save(profile);
+//        userRepository.save(profile);
     }
 
     @Override

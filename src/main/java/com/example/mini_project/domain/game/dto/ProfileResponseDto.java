@@ -23,7 +23,7 @@ public class ProfileResponseDto {
         this.email = user.getEmail();
         this.username = user.getUsername();
         this.averageLevel = formatDouble(calculateAverageLevel(records)) + " 단계";
-        this.averageScore = formatDouble(calculateAverageScore(records)) + "점 ";
+        this.averageScore = formatDouble(calculateAverageScore(records)) + " 점";
     }
 
     private String formatDouble(double value) {
