@@ -4,6 +4,8 @@ import com.example.mini_project.domain.game.entity.Record;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 public class RecordResponseDto {
@@ -16,6 +18,8 @@ public class RecordResponseDto {
         this.id = record.getId();
         this.level = record.getLevel();
         this.gameScore = record.getGameScore();
-        this.registration = record.getCreatedAt().toString();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd - HH:mm:ss");
+        this.registration = record.getCreatedAt().format(formatter);
     }
 }

@@ -44,10 +44,10 @@ document.getElementById("form-container-signup-box").addEventListener("submit", 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json(); // JSON 형식으로 변환된 응답을 반환
+            response.json(); // JSON 형식으로 변환된 응답을 반환
         })
         .then(data => {
-            console.log("서버에서 받은 데이터:", data); // "회원가입 성공!"과 같은 메시지 출력
+            console.log("서버에서 받은 데이터:", data);
             alert("회원가입에 성공했습니다.");
             window.location.href = "/"; // 홈페이지로 이동
         })
@@ -83,7 +83,7 @@ document.getElementById("form-container-box").addEventListener("submit", functio
                 window.location.href = "/game"; // 홈페이지로 이동
             } else {
                 // 회원가입 실패 시 알림창 표시
-                alert("로그인 실패. 입력 정보를 확인해주세요.");
+                alert("로그인 실패. 입력 정보를 확인하거나 관리자에게 문의하세요.");
                 console.error("로그인 실패:", response.message);
             }
         })

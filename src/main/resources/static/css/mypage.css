@@ -1,0 +1,375 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 100vh;
+    justify-content: space-evenly;
+}
+
+/* 헤더 */
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+}
+
+#logo-img {
+    width: 15rem;
+}
+
+.explain-container {
+    height: 100vh;
+    width: 23%;
+    z-index: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 62rem) {
+    .explain-container {
+        display: none;
+    }
+}
+
+.header-item {
+    align-self: center;
+}
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+}
+
+#myProfile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.iconBox {
+    margin: 0 1rem;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        cursor: grab;
+        transform: scale(1);
+    }
+}
+
+.icon {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+#copyright {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 가운데 부분의 기록 파트 */
+
+.profile-container {
+    height: 100vh;
+    width: 54%;
+    z-index: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-record-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    height: 25rem;
+}
+
+#recordTitle {
+    text-align: center;
+    font-size: 1.1rem;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+#recordList {
+    list-style-type: none;
+    padding: 0.1rem;
+    overflow-y: auto;
+}
+
+#recordList:empty {
+    display: none;
+}
+
+.record-explain {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+}
+
+.record-explain p:nth-child(1) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p:nth-child(3) {
+    flex: 8; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p:nth-child(4) {
+    flex: 2; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p {
+    font-size: 14px;
+}
+
+.record {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    background-color: #e3e2e2;
+    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);
+}
+
+.record p:nth-child(1) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record p:nth-child(3) {
+    flex: 8; /* 비율 설정 */
+    text-align: center;
+}
+.record p:nth-child(4) {
+    flex: 2; /* 비율 설정 */
+    text-align: center;
+}
+
+.record p {
+    font-weight: bold;
+}
+
+.deleteButton {
+    user-select: none;
+    /*color: rgb(210, 94, 94);;*/
+    color: white;
+    font-weight: bold;
+    background-color: rgb(210, 94, 94);
+    border: 0.05rem solid rgb(150, 69, 69);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+
+.deleteButton:active {
+    cursor: grab;
+    transform: scale(1);
+}
+
+.hidden {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 개인 프로필 확인 */
+
+.my-profile-container {
+    margin-left: 15px;
+    height: 25rem;
+}
+
+#profileTitle {
+    text-align: center;
+    font-size: 1.1rem;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+#profileList {
+    border-radius: 30px;
+    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);
+    list-style-type: circle;
+    padding: 3rem;
+    width: 400px;
+}
+
+#profileList li {
+    margin-bottom: 15px;
+}
+
+.profile-content {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.profile-content .label {
+    color: #555;
+}
+
+.profile-content span {
+    color: #000;
+}
+
+.profile-value {
+    font-weight: bold;
+}
+
+/* 유틸 버튼 */
+.footer-container {
+    height: 100vh;
+    width: 23%;
+    z-index: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#space-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 9;
+}
+
+#util-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#util-btn button {
+    background-color: #ffb02e;
+    color: #fff;
+    font-size: 14px;
+    /* padding: 10px 45px; */
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 5px 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, cursor 0.3s ease;
+    width: 130px;
+}
+
+#util-btn button:hover {
+    background-color: #ffa500;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#util-btn button:active {
+    background-color: #ff8c00;
+    transform: scale(0.95);
+    cursor: grabbing;
+}
+
+@media screen and (max-width: 58rem) {
+    .explain-container,
+    .footer-container {
+        display: none;
+    }
+}
+
+@media (max-width: 58rem) {
+    .profile-container {
+        flex-direction: column;
+    }
+    .my-record-container, .my-profile-container {
+        margin: 15px 0;
+        height: 13rem;
+    }
+    .my-record-container {
+        flex: 2
+    }
+    .my-profile-container {
+        flex: 2.5
+    }
+    #name-btn {
+        flex: 1
+    }
+}
+
+#name-btn {
+    display: flex;
+    justify-content: center;
+}
+
+#name-button {
+    background-color: #ffb02e;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, cursor 0.3s ease;
+}
+
+#name-button:hover {
+    background-color: #ffa500;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#name-button:active {
+    background-color: #ff8c00;
+    transform: scale(0.95);
+    cursor: grabbing;
+}

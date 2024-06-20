@@ -110,12 +110,18 @@ public class JwtUtil {
     }
 
     public Date getTokenIat(String token) {
-        return Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getIssuedAt();
+        try {
+            // 만료된 토큰에서 클레임을 파싱하되 서명 검증은 생략
+            return Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getIssuedAt(); // username이나 email을 subject로 저장했다고 가정
+        } catch (ExpiredJwtException e) {
+            // 토큰이 만료되었을 경우 ExpiredJwtException에서 클레임을 추출
+            return e.getClaims().getIssuedAt();
+        }
     }
 
     /**

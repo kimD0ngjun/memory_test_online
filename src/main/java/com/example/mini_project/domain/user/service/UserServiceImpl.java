@@ -27,10 +27,11 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
 
         log.info("가입한 이메일: " + userDto.getEmail());
+        log.info("이미 가입되어 있는가: " + userRepository.findByEmail(userDto.getEmail()).isPresent());
 
         // 이메일 중복 처리 예외
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-            throw new DuplicationException("해당 이메일은 이미 가입되어 있습니다");
+            throw new IllegalArgumentException("해당 이메일은 이미 가입되어 있습니다");
         }
 
         log.info("가입한 이메일2: " + userDto.getEmail());
@@ -70,16 +71,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long userId, UserDto updatedUser) {
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new ResourceNotFoundException("수정하려는 " + userId + "번 ID가 존재하지 않습니다")
+    public void updateUsername(User user, UserDto updatedUser) {
+        User profile = userRepository.findById(user.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("수정하려는 회원 정보가 존재하지 않습니다")
         );
 
-        user.updateUser(updatedUser);
-
-        User updatedUserObj = userRepository.save(user);
-
-        return UserMapper.mapToUserDto(updatedUserObj);
+        profile.updateUser(updatedUser);
+//        userRepository.save(profile);
     }
 
     @Override
