@@ -1,6 +1,7 @@
 package com.example.mini_project.domain.user.entity;
 
-import com.example.mini_project.domain.game.entity.Record;
+import com.example.mini_project.domain.game.memory.entity.MemoryTestRecord;
+import com.example.mini_project.domain.game.snake.entity.SnakeGameRecord;
 import com.example.mini_project.domain.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,10 @@ public class User {
     private UserRoleEnum role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Record> records;
+    private List<MemoryTestRecord> memoryTestRecords;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SnakeGameRecord> snakeGameRecords;
 
     public User(String username, String email, String password, UserRoleEnum role) {
         this.username = username;

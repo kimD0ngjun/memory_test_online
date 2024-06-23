@@ -1,0 +1,462 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 13.5px;
+    }
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.gamePlay-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.explain-container {
+    height: 100vh;
+    width: 30%;
+    z-index: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.ranking-container {
+    height: 100vh;
+    width: 30%;
+    z-index: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 914px) {
+    .explain-container,
+    .ranking-container {
+        display: none;
+    }
+}
+
+/* 蹂묐젹 �ㅻ뜑 */
+
+.header-item {
+    align-self: center;
+}
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+}
+
+#logo-img {
+    width: 15rem;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        cursor: grab;
+        transform: scale(1);
+    }
+}
+
+#clickLogo {
+    text-align: center;
+    margin-top: 1rem;
+    animation: pulsate 4s 4s 1.5;
+    font-size: 0.8rem;
+    color: #777777;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    12.5% {
+        transform: scale(1.1);
+    }
+    25% {
+        transform: scale(1);
+    }
+    37.5% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    62.5% {
+        transform: scale(1.1);
+    }
+    75% {
+        transform: scale(1);
+    }
+    87.5% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#explainList {
+    height: 70%;
+    list-style-type: circle;
+    padding: 0.7rem;
+    align-self: stretch;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1.5rem);
+    transition: 500ms ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.explainItem {
+    font-size: 0.9rem;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    margin-bottom: 1.2rem;
+}
+
+#warning {
+    font-weight: bold;
+    color: #bd0000;
+}
+
+#myProfile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.iconBox {
+    margin: 0 1rem;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        cursor: grab;
+        transform: scale(1);
+    }
+}
+
+.icon {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+#copyright {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.game-container {
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+#gameCanvas {
+    background-color: #eee;
+    display: block;
+    /* margin: 20px auto; */
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+#gameBoard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.gameBoard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33.3%;
+}
+
+.system {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+#levelBoard, #scoreBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+    font-size: 24px;
+    color: #333;
+}
+
+button {
+    /* width: 100px;
+    text-align: center; */
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #77B255;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover:enabled {
+    background-color: #629640;
+}
+
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* �먯닔 蹂대뱶 */
+#ranking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 9;
+}
+
+#recordTitle {
+    text-align: center;
+    font-size: 1.1rem;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+#recordList {
+    list-style-type: none;
+    padding: 0.1rem;
+}
+
+#recordList:empty {
+    display: none;
+}
+
+/*#rankingList .ranking:nth-child(1) {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    color: black;*/
+/*    font-size: 12px;*/
+/*}*/
+
+#recordList .record:nth-child(2) {
+    background: linear-gradient(45deg, #FFD700, #FFB14E);
+    background-clip: padding-box;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-weight: bold;
+}
+
+#recordList .record:nth-child(3) {
+    background: linear-gradient(45deg, #C0C0C0, #E0E0E0);
+    background-clip: padding-box;
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.7);
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-weight: bold;
+}
+
+#recordList .record:nth-child(4) {
+    background: linear-gradient(45deg, #CD7F32, #D2A679);
+    background-clip: padding-box;
+    box-shadow: 0 0 10px rgba(205, 127, 50, 0.7);
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-weight: bold;
+}
+
+#recordList .record:nth-child(n+5) {
+    background-color: #656565;
+    display: flex;
+    flex-direction: row;
+}
+.record {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: white;
+    width: 400px;
+    justify-content: center;
+}
+
+.record p:nth-child(1) {
+    flex: 1; /* 비율 설정 */
+    text-align: left;
+}
+
+.record p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;
+}
+
+.record p:nth-child(3) {
+    flex: 5; /* 비율 설정 */
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.record p:nth-child(4) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: right;
+}
+
+.record p:nth-child(5) {
+    flex: 5; /* 비율 설정 */
+    text-align: right;
+}
+
+.record p {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.record-explain {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 400px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-size: 14px;
+}
+
+.record-explain p:nth-child(1) {
+    flex: 1; /* 비율 설정 */
+    text-align: left;
+}
+
+.record-explain p:nth-child(2) {
+    flex: 5; /* 비율 설정 */
+    text-align: center;
+}
+
+.record-explain p:nth-child(3) {
+    flex: 5; /* 비율 설정 */
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.record-explain p:nth-child(4) {
+    flex: 1.5; /* 비율 설정 */
+    text-align: right;
+}
+
+.record-explain p:nth-child(5) {
+    flex: 5; /* 비율 설정 */
+    text-align: right;
+}
+
+.record-explain p {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+#util-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#util-btn button {
+    background-color: #77B255;
+    color: #fff;
+    font-size: 14px;
+    /* padding: 10px 45px; */
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 5px 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, cursor 0.3s ease;
+    width: 130px;
+}
+
+#util-btn button:hover {
+    background-color: #629640;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#util-btn button:active {
+    background-color: #629640;
+    transform: scale(0.95);
+    cursor: grabbing;
+}
+
+.snake {
+    color: #629640;
+    font-weight: bold;
+}
+
+.apple {
+    color: #F8312F;
+    font-weight: bold;
+}

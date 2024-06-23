@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/css/SnakeGameIndexLogo.svg" />
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="/css/snake_game.css" />
+</head>
+<body>
+<header class="explain-container">
+    <div id="logo" class="header-item">
+        <img id="logo-img" src="/css/SnakeGameLogo.svg" alt="logo" />
+        <p id="clickLogo">로고를 클릭해서 튜토리얼을 확인해주세요!</p>
+    </div>
+    <ol id="explainList" class="header-item">
+        <li class="explainItem">간단한 피지컬 게임입니다</li>
+        <li class="explainItem">Play Game 버튼을 누르면 <span class="snake">뱀</span>이 오른쪽으로 움직입니다</li>
+        <li class="explainItem">
+            화살표를 사용해서 <span class="snake">뱀</span>의 방향을 조정할 수 있습니다
+        </li>
+        <li class="explainItem">
+            <span class="apple">사과</span>를 먹으면 <span class="snake">뱀</span>의 몸 길이가 한 칸씩 늘어납니다
+        </li>
+        <li class="explainItem">
+            벽이나 <span class="snake">뱀</span>의 몸에 부딪히면 게임 오버됩니다
+        </li>
+        <li class="explainItem">
+            점수를 저장하고 랭킹에 올려 다른 사람과의 기록을 비교하세요!
+        </li>
+        <li class="explainItem">즐거운 하루 되세요!</li>
+    </ol>
+    <div id="myProfile" class="header-item">
+        <a
+                class="iconBox"
+                href="https://github.com/kimD0ngjun/memory_test"
+                target="_blank"
+        >
+            <img class="icon" src="/css/Github.svg" alt="gitHub" />
+        </a>
+        <a
+                class="iconBox"
+                href="mailto:chickentasty0112@gmail.com"
+                target="_blank"
+        >
+            <img class="icon" src="/css/Mail.svg" alt="gmail" />
+        </a>
+        <a
+                class="iconBox"
+                href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                target="_blank"
+        >
+            <img class="icon" src="/css/Instagram.svg" alt="instagram" />
+        </a>
+    </div>
+    <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
+</header>
+<div class="game-container">
+    <canvas id="gameCanvas" width="520" height="520"></canvas>
+    <section id="gameBoard" class="tab">
+        <div class="gameBoard">
+            <button id="startBtn" type="button" class="board">PLAY GAME !</button>
+        </div>
+        <div class="gameBoard">
+            <div class="system">LEVEL</div>
+            <div id="levelBoard" class="board">1</div>
+        </div>
+        <div class="gameBoard">
+            <div class="system">SCORE</div>
+            <div id="scoreBoard" class="board">00000</div>
+        </div>
+    </section>
+</div>
+
+<footer class="ranking-container">
+    <div id="ranking-container">
+        <div id="recordTitle">RANKING BOARD</div>
+        <ul id="recordList">
+            <li class="record-explain">
+                <p>등수</p>
+                <p>닉네임</p>
+                <p>이메일</p>
+                <p>단계</p>
+                <p>점수</p>
+            </li>
+            <li class="record" th:each="ranking: ${rankings}">
+                <p th:text="${ranking.rank}">등수</p>
+                <p th:text="${ranking.username}">회원명</p>
+                <p th:text="${ranking.email}">회원이메일</p>
+                <p th:text="${ranking.level}">레벨</p>
+                <p th:text="${ranking.gameScore}">점수</p>
+            </li>
+        </ul>
+    </div>
+    <div id="util-btn">
+        <button id="my-page-btn" type="button">MY PAGE</button>
+        <button id="logout-btn" type="button">LOG OUT</button>
+    </div>
+</footer>
+</body>
+<script src="/js/snake_game.js"></script>
+<script>
+    // 모든 쿠키 삭제 함수
+    function deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
+    }
+
+    // 로그아웃 처리
+    document.querySelector('#logout-btn').addEventListener('click', () => {
+        fetch('/mini/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                alert("성공적으로 로그아웃됐습니다.")
+                window.location.href = "/"; // 루트 경로로 이동
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("비정상적인 로그아웃 처리! 관리자에게 문의하세요.")
+            });
+
+        deleteAllCookies();  // 모든 쿠키 삭제
+    });
+
+    document.querySelector('#my-page-btn').addEventListener('click', () => {
+        window.location.href = "/snake_game/mypage";  // 루트 경로로 라우팅
+    });
+</script>
+</html>

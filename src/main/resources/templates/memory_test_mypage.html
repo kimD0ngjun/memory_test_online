@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/css/MemoryTestIndexLogo.svg" />
+    <title>Memory Test</title>
+    <link rel="stylesheet" href="/css/mypage.css">
+</head>
+<body>
+<header class="explain-container">
+    <div id="logo" class="header-item">
+        <img id="logo-img" src="/css/MemoryTestLogo.svg" alt="logo" />
+        <p id="clickLogo">로고를 클릭하면 게임 선택 페이지로 돌아갑니다</p>
+    </div>
+    <div>
+        <div id="myProfile" class="header-item">
+            <a
+                    class="iconBox"
+                    href="https://github.com/kimD0ngjun/memory_test"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Github.svg" alt="gitHub" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="mailto:chickentasty0112@gmail.com"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Mail.svg" alt="gmail" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Instagram.svg" alt="instagram" />
+            </a>
+        </div>
+        <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
+    </div>
+</header>
+<div class="profile-container">
+    <span class="my-record-container">
+        <div id="recordTitle">MY RECORD BOARD</div>
+        <ul id="recordList">
+            <li class="record-explain">
+                <p>단계</p>
+                <p>점수</p>
+                <p>날짜</p>
+                <p>삭제</p>
+            </li>
+            <li class="record" th:each="record: ${records}">
+                <p th:text="${record.level}">단계</p>
+                <p th:text="${record.gameScore}">점수</p>
+                <p class="date" th:text="${record.registration}">날짜</p>
+                <p class="deleteButton" >X</p>
+                <p class="hidden" th:text="${record.id}"></p>
+            </li>
+        </ul>
+    </span>
+    <span class="my-profile-container">
+        <div id="profileTitle">MY PROFILE</div>
+        <ul id="profileList">
+            <li>
+                <p class="profile-content">
+                    <span class="label">닉네임: </span>
+                    <span class="profile-value" th:text="${profile.username}"></span>
+                </p>
+            </li>
+            <li>
+                <p class="profile-content">
+                    <span class="label">이메일: </span>
+                    <span class="profile-value" th:text="${profile.email}"></span>
+                </p>
+            </li>
+            <li>
+                <p class="profile-content">
+                    <span class="label">평균 레벨: </span>
+                    <span class="profile-value" th:text="${profile.averageLevel}"></span>
+                </p>
+            </li>
+            <li>
+                <p class="profile-content">
+                    <span class="label">평균 점수: </span>
+                    <span class="profile-value" th:text="${profile.averageScore}"></span>
+                </p>
+            </li>
+        </ul>
+        <div id="name-btn">
+            <button type="button" id="name-button">CHANGE NICKNAME</button>
+        </div>
+    </span>
+</div>
+<footer class="footer-container">
+    <div id="space-container">
+    </div>
+    <div id="util-btn">
+        <button id="my-page-btn" type="button">GAME PAGE</button>
+        <button id="logout-btn" type="button">LOG OUT</button>
+    </div>
+</footer>
+<script src="/js/mypage.js"></script>
+<script>
+    // 모든 쿠키 삭제 함수
+    function deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
+    }
+
+    // 로그아웃 처리
+    document.querySelector('#logout-btn').addEventListener('click', () => {
+        fetch('/mini/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                alert("성공적으로 로그아웃됐습니다.")
+                window.location.href = "/"; // 루트 경로로 이동
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("비정상적인 로그아웃 처리! 관리자에게 문의하세요.")
+            });
+
+        deleteAllCookies();  // 모든 쿠키 삭제
+    });
+
+    document.querySelector('#my-page-btn').addEventListener('click', () => {
+        window.location.href = "/memory_test";  // 루트 경로로 라우팅
+    });
+
+    document.querySelector('#logo-img').addEventListener('click', () => {
+        window.location.href = "/games";  // 루트 경로로 라우팅
+    });
+</script>
+</body>
+</html>

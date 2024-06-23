@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 100vh;
+    justify-content: space-evenly;
+}
+
+/* 헤더 */
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+}
+
+#logo-img {
+    width: 15rem;
+}
+
+.explain-container {
+    height: 100vh;
+    width: 30%;
+    z-index: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 62rem) {
+    .explain-container {
+        display: none;
+    }
+}
+
+.header-item {
+    align-self: center;
+}
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+}
+
+#clickLogo {
+    text-align: center;
+    margin-top: 1rem;
+    animation: pulsate 4s 4s 1.5;
+    font-size: 0.8rem;
+    color: #777777;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    12.5% {
+        transform: scale(1.1);
+    }
+    25% {
+        transform: scale(1);
+    }
+    37.5% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    62.5% {
+        transform: scale(1.1);
+    }
+    75% {
+        transform: scale(1);
+    }
+    87.5% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#myProfile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.iconBox {
+    margin: 0 1rem;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        cursor: grab;
+        transform: scale(1);
+    }
+}
+
+.icon {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+#copyright {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 푸터 */
+.ranking-container {
+    height: 100vh;
+    width: 30%;
+    z-index: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ranking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 9;
+}
+
+#util-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#util-btn button {
+    background-color: #3b73e8;
+    color: #fff;
+    font-size: 14px;
+    /* padding: 10px 45px; */
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 5px 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, cursor 0.3s ease;
+    width: 130px;
+}
+
+#util-btn button:hover {
+    background-color: #2d5acc;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#util-btn button:active {
+    background-color: #2b57c7;
+    transform: scale(0.95);
+    cursor: grabbing;
+}
+
+/* 미디어 쿼리 */
+
+@media screen and (max-width: 58rem) {
+    .explain-container,
+    .ranking-container {
+        display: none;
+    }
+}
+
+/* 선택창 */
+.select-container {
+    height: 100vh;
+    width: 40%;
+    z-index: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-img {
+    width: 350px;
+    margin: 50px 0;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        cursor: grab;
+        transform: scale(1);
+    }
+}

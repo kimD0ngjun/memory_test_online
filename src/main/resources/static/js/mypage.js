@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const check = confirm(`삭제하려는 기록 날짜: ${date}\n\n기록을 삭제하시겠습니까?\n(이미 랭킹에 등재됐으면 기록만 삭제되고 랭킹은 삭제되지 않습니다.)`);
 
             if (check) {
-                fetch(`/mini/game/record?id=${id}`, {
+                fetch(`/mini/memory_test/record?id=${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
