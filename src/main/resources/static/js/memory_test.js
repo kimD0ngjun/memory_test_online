@@ -24,13 +24,13 @@ let answerArray = [];
 let logoClick = document.getElementById("logo-img");
 let explainList = document.getElementById("explainList");
 
-playButton.addEventListener("click", game);
+playButton.addEventListener("click", memory_test);
 
 logoClick.addEventListener("click", function () {
     explainList.classList.toggle("active");
 });
 
-async function game() {
+async function memory_test() {
     if (play) {
         resetGame();
     }
@@ -422,7 +422,7 @@ async function addScore(stage, scoreCount) {
     } catch (error) {
         console.error("기록 저장 실패:", error);
         alert("기록 저장에 실패했습니다. 게임을 초기화합니다.");
-        window.location.href = "/game"; // 홈페이지로 이동
+        window.location.href = "/memory_test"; // 홈페이지로 이동
     }
 }
 
@@ -452,7 +452,7 @@ async function addRanking(stage, scoreCount) {
     } catch (error) {
         console.error("랭킹 등재 실패:", error);
         alert("랭킹 등재에 실패했습니다. 게임을 초기화합니다.");
-        window.location.href = "/game"; // 홈페이지로 이동
+        window.location.href = "/memory_test"; // 홈페이지로 이동
     }
 }
 
