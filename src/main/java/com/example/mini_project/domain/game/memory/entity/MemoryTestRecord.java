@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "records")
+@Table(name = "memory_test_records")
 public class MemoryTestRecord extends RecordTimeStamped {
 
     @Id
