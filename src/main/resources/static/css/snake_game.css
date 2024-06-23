@@ -346,21 +346,21 @@ section {
 }
 
 .record p:nth-child(2) {
-    flex: 5; /* 비율 설정 */
+    flex: 7; /* 비율 설정 */
     text-align: center;
     overflow: hidden; /* 넘치는 부분을 숨김 */
     text-overflow: ellipsis;
 }
 
-.record p:nth-child(3) {
-    flex: 5; /* 비율 설정 */
-    overflow: hidden; /* 넘치는 부분을 숨김 */
-    text-overflow: ellipsis;
-    text-align: center;
-}
+/*.record p:nth-child(3) {*/
+/*    flex: 5; !* 비율 설정 *!*/
+/*    overflow: hidden; !* 넘치는 부분을 숨김 *!*/
+/*    text-overflow: ellipsis;*/
+/*    text-align: center;*/
+/*}*/
 
 .record p:nth-child(4) {
-    flex: 1.5; /* 비율 설정 */
+    flex: 2; /* 비율 설정 */
     text-align: right;
 }
 
@@ -392,18 +392,20 @@ section {
 }
 
 .record-explain p:nth-child(2) {
-    flex: 5; /* 비율 설정 */
+    flex: 7; /* 비율 설정 */
     text-align: center;
-}
-
-.record-explain p:nth-child(3) {
-    flex: 5; /* 비율 설정 */
     overflow: hidden; /* 넘치는 부분을 숨김 */
     text-overflow: ellipsis;
-    text-align: center;
 }
+
+/*.record-explain p:nth-child(3) {*/
+/*    flex: 5; !* 비율 설정 *!*/
+/*    overflow: hidden; !* 넘치는 부분을 숨김 *!*/
+/*    text-overflow: ellipsis;*/
+/*    text-align: center;*/
+/*}*/
 .record-explain p:nth-child(4) {
-    flex: 1.5; /* 비율 설정 */
+    flex: 2; /* 비율 설정 */
     text-align: right;
 }
 
