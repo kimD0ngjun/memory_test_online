@@ -50,7 +50,7 @@
     <div id="ranking-container">
     </div>
     <div id="util-btn">
-        <button id="my-page-btn" type="button">MY PAGE</button>
+<!--        <button id="my-page-btn" type="button">MY PAGE</button>-->
         <button id="logout-btn" type="button">LOG OUT</button>
     </div>
 </footer>
@@ -91,9 +91,9 @@
         deleteAllCookies();  // 모든 쿠키 삭제
     });
 
-    document.querySelector('#my-page-btn').addEventListener('click', () => {
-        window.location.href = "/mypage";  // 루트 경로로 라우팅
-    });
+    // document.querySelector('#my-page-btn').addEventListener('click', () => {
+    //     window.location.href = "/mypage";  // 루트 경로로 라우팅
+    // });
 
     // 게임 선택
     document.querySelector('#memory_test-select').addEventListener('click', () => {
