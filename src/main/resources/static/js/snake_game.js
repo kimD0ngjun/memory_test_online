@@ -134,7 +134,7 @@ async function game() {
 
     // 분기 단위시간 조정(줄일 수록 빡세겠지)
     // 60, hard는 45
-    setTimeout(game, 55);
+    setTimeout(game, 60);
 }
 
 // 게임 시작~
