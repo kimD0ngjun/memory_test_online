@@ -3,58 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/css/MemoryTestIndexLogo.svg" />
+    <link rel="icon" type="image/svg+xml" href="/css/GamesIndexLogo.svg" />
     <title>Memory Test</title>
     <link rel="stylesheet" href="/css/mypage.css">
 </head>
 <body>
 <header class="explain-container">
     <div id="logo" class="header-item">
-      <img id="logo-img" src="/css/MemoryTestLogo.svg" alt="logo" />
+        <img id="logo-img" src="/css/GamesLogo.svg" alt="logo" />
     </div>
     <div>
-      <div id="myProfile" class="header-item">
-        <a
-                class="iconBox"
-                href="https://github.com/kimD0ngjun/memory_test"
-                target="_blank"
-        >
-          <img class="icon" src="/css/Github.svg" alt="gitHub" />
-        </a>
-        <a
-                class="iconBox"
-                href="mailto:chickentasty0112@gmail.com"
-                target="_blank"
-        >
-          <img class="icon" src="/css/Mail.svg" alt="gmail" />
-        </a>
-        <a
-                class="iconBox"
-                href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
-                target="_blank"
-        >
-          <img class="icon" src="/css/Instagram.svg" alt="instagram" />
-        </a>
-      </div>
-      <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
+        <div id="myProfile" class="header-item">
+            <a
+                    class="iconBox"
+                    href="https://github.com/kimD0ngjun/memory_test"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Github.svg" alt="gitHub" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="mailto:chickentasty0112@gmail.com"
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Mail.svg" alt="gmail" />
+            </a>
+            <a
+                    class="iconBox"
+                    href="https://instagram.com/00ngjun?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                    target="_blank"
+            >
+                <img class="icon" src="/css/Instagram.svg" alt="instagram" />
+            </a>
+        </div>
+        <p id="copyright">Copyright 2024. 김동준. all rights reserved.</p>
     </div>
 </header>
 <div class="profile-container">
-    <span class="my-memoryTestRecord-container">
-        <div id="recordTitle">MY RECORD BOARD</div>
+    <span class="my-record-container">
+        <div id="recordTitle">MEMORY TEST RECORD</div>
         <ul id="recordList">
-            <li class="memoryTestRecord-explain">
+            <li class="record-explain">
                 <p>단계</p>
                 <p>점수</p>
                 <p>날짜</p>
                 <p>삭제</p>
             </li>
-            <li class="memoryTestRecord" th:each="memoryTestRecord: ${records}">
-                <p th:text="${memoryTestRecord.level}">단계</p>
-                <p th:text="${memoryTestRecord.gameScore}">점수</p>
-                <p class="date" th:text="${memoryTestRecord.registration}">날짜</p>
+            <li class="record" th:each="record: ${records}">
+                <p th:text="${record.level}">단계</p>
+                <p th:text="${record.gameScore}">점수</p>
+                <p class="date" th:text="${record.registration}">날짜</p>
                 <p class="deleteButton" >X</p>
-                <p class="hidden" th:text="${memoryTestRecord.id}"></p>
+                <p class="hidden" th:text="${record.id}"></p>
             </li>
         </ul>
     </span>

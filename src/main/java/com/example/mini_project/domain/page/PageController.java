@@ -5,6 +5,8 @@ import com.example.mini_project.domain.game.common.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
 import com.example.mini_project.domain.game.memory.service.MemoryTestRankingRedisService;
 import com.example.mini_project.domain.game.memory.service.MemoryTestRecordService;
+import com.example.mini_project.domain.game.snake.service.SnakeGameRankingRedisService;
+import com.example.mini_project.domain.game.snake.service.SnakeGameRecordService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,9 @@ import java.util.List;
 public class PageController {
 
     private final MemoryTestRankingRedisService memoryTestRankingRedisService;
+    private final SnakeGameRankingRedisService snakeGameRankingRedisService;
     private final MemoryTestRecordService memoryTestRecordService;
+    private final SnakeGameRecordService snakeGameRecordService;
     private static final int TOP_RANKING = 10;
 
     @GetMapping
@@ -32,11 +36,19 @@ public class PageController {
     }
 
     @GetMapping("/memory_test")
-    public String getGamePage(Model model) {
+    public String getMemoryTestPage(Model model) {
         List<RankingResponseDto> rankings = memoryTestRankingRedisService.getTopRankings(TOP_RANKING);
         model.addAttribute("rankings", rankings);
 
         return "memory_test";
+    }
+
+    @GetMapping("/snake_game")
+    public String getSnakeGamePage(Model model) {
+        List<RankingResponseDto> rankings = snakeGameRankingRedisService.getTopRankings(TOP_RANKING);
+        model.addAttribute("rankings", rankings);
+
+        return "snake_game";
     }
 
     @GetMapping("/mypage")

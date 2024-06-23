@@ -6,6 +6,7 @@ import com.example.mini_project.domain.game.memory.entity.MemoryTestRanking;
 import com.example.mini_project.domain.game.memory.repository.MemoryTestRankingRedisRepository;
 import com.example.mini_project.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemoryTestRankingRedisService implements RankingRedisService {
 
     private final MemoryTestRankingRedisRepository memoryTestRankingRedisRepository;
@@ -29,6 +31,7 @@ public class MemoryTestRankingRedisService implements RankingRedisService {
     @Override
     public List<RankingResponseDto> getTopRankings(int topN) {
         List<MemoryTestRanking> memoryTestRankings = memoryTestRankingRedisRepository.getRankingRange(0, topN - 1);
+        log.info(memoryTestRankings.toString());
 
         return IntStream.range(0, memoryTestRankings.size()).
                 mapToObj(i -> new RankingResponseDto(memoryTestRankings.get(i), i + 1)).toList();
