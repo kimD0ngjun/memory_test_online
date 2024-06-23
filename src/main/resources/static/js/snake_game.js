@@ -9,7 +9,6 @@ let score = parseInt(scoreBoard.textContent, 10) || 0;
 const ctx = canvas.getContext('2d');
 const N = 26; // 게임판 사이즈
 const blockSize = canvas.height / N; // 단위 블록
-const start = false;
 
 let maps = Array.from({ length: N }, () => Array(N).fill(0)); // 게임 필드
 let direction = [1, 0]; // 처음 방향
@@ -65,7 +64,10 @@ maps[1][1] = 1;
 draw();
 
 // 게임 함수
-function game() {
+async function game() {
+    startBtn.disabled = true;
+    startBtn.textContent = "EAT APPLE !";
+
     // 분기 시작
     let { x, y } = bodyQueue[0]; // 뱀 대가리 뽑기
 
@@ -77,12 +79,13 @@ function game() {
     // 1. 맵 밖(벽)으로 향한다
     // 2. 자기 몸(1)이랑 부딪힌다
     if (x < 0 || x >= N || y < 0 || y >= N || maps[x][y] === 1) {
-        alert(`Game Over!\n\n진행 레벨: ${level} 단계\n최종 점수: ${score} 점\n게임을 초기화합니다`);
-        location.reload();
-
-        //todo: 여기다가 게임 재시작, 점수 환산 및 저장 로직 함수
-
+        // alert(`Game Over!\n\n진행 레벨: ${level} 단계\n최종 점수: ${score} 점\n게임을 초기화합니다`);
+        // location.reload();
+        //
+        // //todo: 여기다가 게임 재시작, 점수 환산 및 저장 로직 함수
+        console.log("game over")
         // return;
+        await resetGame(level, score)
     }
 
     // 사과를 먹었는지?
@@ -135,12 +138,7 @@ function game() {
 }
 
 // 게임 시작~
-startBtn.addEventListener("click", () => {
-        game();
-        startBtn.disabled = true;
-        startBtn.textContent = "EAT APPLE !";
-    }
-)
+startBtn.addEventListener("click", game)
 
 // 방향키 조정해서 나아갈 방향 업뎃
 document.addEventListener('keydown', (event) => {
@@ -171,3 +169,92 @@ document.addEventListener('keydown', (event) => {
         }
     }
 });
+
+
+
+// 점수 처리 관련 비동기
+async function resetGame(stage, scoreCount) {
+    let guide = confirm(
+        `
+    Game Over
+
+    최종 클리어 : ${stage} 단계
+    총합 스코어 : ${scoreCount} 점
+
+    기록을 개인 기록에 저장하시겠습니까?
+    `
+    );
+    if (guide) {
+        // 1. 기록을 먼저 저장하고
+        await addScore(stage, scoreCount)
+
+        // 2. 랭킹 등재여부 분기
+        let ranking = confirm(`최종 클리어 : ${stage} 단계\n총합 스코어 : ${scoreCount}\n\n기록을 랭킹에 등재하시겠습니까?`);
+
+        if (ranking) {
+            await addRanking(stage, scoreCount);
+        }
+    }
+
+    alert("게임을 초기화합니다");
+
+    location.reload();
+}
+
+async function addScore(stage, scoreCount) {
+    const formData = {
+        level: stage,
+        gameScore: scoreCount
+    }
+
+    try {
+        const response = await fetch("/mini/snake_game/record", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log("서버에서 받은 데이터:", data);
+        alert("기록이 저장됐습니다.");
+    } catch (error) {
+        console.error("기록 저장 실패:", error);
+        alert("기록 저장에 실패했습니다. 게임을 초기화합니다.");
+        window.location.href = "/memory_test"; // 홈페이지로 이동
+    }
+}
+
+async function addRanking(stage, scoreCount) {
+    const formData = {
+        level: stage,
+        gameScore: scoreCount
+    };
+
+    try {
+        const response = await fetch("/mini/snake_game/ranking", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log("서버에서 받은 데이터:", data);
+        alert("랭킹에 등재됐습니다.");
+    } catch (error) {
+        console.error("랭킹 등재 실패:", error);
+        alert("랭킹 등재에 실패했습니다. 게임을 초기화합니다.");
+        window.location.href = "/memory_test"; // 홈페이지로 이동
+    }
+}
