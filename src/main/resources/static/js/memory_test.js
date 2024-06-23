@@ -404,7 +404,7 @@ async function addScore(stage, scoreCount) {
     }
 
     try {
-        const response = await fetch("/mini/game/record", {
+        const response = await fetch("/mini/memory_test/record", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
