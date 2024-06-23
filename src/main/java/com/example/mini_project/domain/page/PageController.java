@@ -3,8 +3,8 @@ package com.example.mini_project.domain.page;
 import com.example.mini_project.domain.game.dto.ProfileResponseDto;
 import com.example.mini_project.domain.game.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.dto.RecordResponseDto;
-import com.example.mini_project.domain.game.service.RankingRedisService;
-import com.example.mini_project.domain.game.service.RecordService;
+import com.example.mini_project.domain.game.service.MemoryTestRankingRedisService;
+import com.example.mini_project.domain.game.service.MemoryTestService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,8 @@ import java.util.List;
 @Slf4j
 public class PageController {
 
-    private final RankingRedisService rankingService;
-    private final RecordService recordService;
+    private final MemoryTestRankingRedisService rankingService;
+    private final MemoryTestService memoryTestService;
     private static final int TOP_RANKING = 10;
 
     @GetMapping
@@ -50,7 +50,7 @@ public class PageController {
             @AuthenticationPrincipal UserDetailsImpl userDetails
             ) {
         User user = userDetails.getUser();
-        List<RecordResponseDto> records = recordService.getRecords(user);
+        List<RecordResponseDto> records = memoryTestService.getRecords(user);
         ProfileResponseDto profile = new ProfileResponseDto(user, records);
 
         model.addAttribute("profile", profile);

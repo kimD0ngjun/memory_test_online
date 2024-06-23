@@ -1,6 +1,6 @@
 package com.example.mini_project.domain.game.repository;
 
-import com.example.mini_project.domain.game.entity.Ranking;
+import com.example.mini_project.domain.game.entity.MemoryTestRanking;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +14,10 @@ import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
-public class RankingRedisRepository {
+public class MemoryTestRankingRedisRepository {
 
-    private final RedisTemplate<String, Ranking> redisTemplate;
-    private ZSetOperations<String, Ranking> zSetOperations;
+    private final RedisTemplate<String, MemoryTestRanking> redisTemplate;
+    private ZSetOperations<String, MemoryTestRanking> zSetOperations;
 
     @Value("${custom.redis.ranking.key}")
     private String rankingKey;
@@ -35,44 +35,44 @@ public class RankingRedisRepository {
      * -> 얘는 '레벨 * 10^20 + 점수'를 저장할 score로 처리하는 거 좋은 듯?
      * 2. 완벽하게 같은 동점자 처리하기는 이름순?
      * */
-    public void save(Ranking ranking) {
-        zSetOperations.add(rankingKey, ranking, ranking.getScore());
+    public void save(MemoryTestRanking memoryTestRanking) {
+        zSetOperations.add(rankingKey, memoryTestRanking, memoryTestRanking.getScore());
     }
 
-    public List<Ranking> getRankingRange(int start, int end) {
-        Set<Ranking> rankings = zSetOperations.reverseRange(rankingKey, start, end);
+    public List<MemoryTestRanking> getRankingRange(int start, int end) {
+        Set<MemoryTestRanking> memoryTestRankings = zSetOperations.reverseRange(rankingKey, start, end);
 
-        if (rankings == null || rankings.isEmpty()) {
+        if (memoryTestRankings == null || memoryTestRankings.isEmpty()) {
             return new ArrayList<>();
         }
 
-        return new ArrayList<>(rankings);
+        return new ArrayList<>(memoryTestRankings);
     }
 
     // delta 는 특정 값에 대해 증가 또는 감소할 양을 나타내는 변수
     public void increaseScore(String email, double delta) {
-        Ranking ranking = findById(email);
-        if (ranking != null) {
-            zSetOperations.incrementScore(rankingKey, ranking, delta);
+        MemoryTestRanking memoryTestRanking = findById(email);
+        if (memoryTestRanking != null) {
+            zSetOperations.incrementScore(rankingKey, memoryTestRanking, delta);
         }
     }
 
     public void decreaseScore(String email, double delta) {
-        Ranking ranking = findById(email);
-        if (ranking != null && delta > 0) {
-            zSetOperations.incrementScore(rankingKey, ranking, -delta);
+        MemoryTestRanking memoryTestRanking = findById(email);
+        if (memoryTestRanking != null && delta > 0) {
+            zSetOperations.incrementScore(rankingKey, memoryTestRanking, -delta);
         }
     }
 
-    public Ranking findById(String email) {
+    public MemoryTestRanking findById(String email) {
         // redis 에서는 ZSet 에서 직접 객체를 검색하는 기능이 없으므로, 별도로 저장된 객체를 조회
         return redisTemplate.opsForValue().get(email);
     }
 
     public void remove(String email) {
-        Ranking ranking = findById(email);
-        if (ranking != null) {
-            zSetOperations.remove(rankingKey, ranking);
+        MemoryTestRanking memoryTestRanking = findById(email);
+        if (memoryTestRanking != null) {
+            zSetOperations.remove(rankingKey, memoryTestRanking);
         }
     }
 }

@@ -6,7 +6,7 @@ import com.example.mini_project.domain.user.entity.User;
 
 import java.util.List;
 
-public interface RecordService {
+public interface MemoryTestService {
 
     void createRecord(User user, RankingRequestDto rankingRequestDto);
 

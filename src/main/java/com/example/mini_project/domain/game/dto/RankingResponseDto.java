@@ -1,6 +1,6 @@
 package com.example.mini_project.domain.game.dto;
 
-import com.example.mini_project.domain.game.entity.Ranking;
+import com.example.mini_project.domain.game.entity.MemoryTestRanking;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +17,11 @@ public class RankingResponseDto {
     private int level;
     private String gameScore;
 
-    public RankingResponseDto(Ranking ranking, int rank) {
+    public RankingResponseDto(MemoryTestRanking memoryTestRanking, int rank) {
         this.rank = rank + "등";
-        this.username = ranking.getUsername();
-        this.email = ranking.getEmail();
-        this.level = ranking.getLevel();
-        this.gameScore = ranking.getGameScore() + " 점";
+        this.username = memoryTestRanking.getUsername();
+        this.email = memoryTestRanking.getEmail();
+        this.level = memoryTestRanking.getLevel();
+        this.gameScore = memoryTestRanking.getGameScore() + " 점";
     }
 }

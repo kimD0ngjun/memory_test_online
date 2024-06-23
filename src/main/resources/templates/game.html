@@ -128,23 +128,23 @@
     </div>
 </div>
 
-<footer class="ranking-container">
-    <div id="ranking-container">
+<footer class="memoryTestRanking-container">
+    <div id="memoryTestRanking-container">
         <div id="recordTitle">RANKING BOARD</div>
         <ul id="recordList">
-            <li class="record-explain">
+            <li class="memoryTestRecord-explain">
                 <p>등수</p>
                 <p>닉네임</p>
                 <p>이메일</p>
                 <p>단계</p>
                 <p>점수</p>
             </li>
-            <li class="record" th:each="ranking: ${rankings}">
-                <p th:text="${ranking.rank}">등수</p>
-                <p th:text="${ranking.username}">회원명</p>
-                <p th:text="${ranking.email}">회원이메일</p>
-                <p th:text="${ranking.level}">레벨</p>
-                <p th:text="${ranking.gameScore}">점수</p>
+            <li class="memoryTestRecord" th:each="memoryTestRanking: ${memoryTestRankings}">
+                <p th:text="${memoryTestRanking.rank}">등수</p>
+                <p th:text="${memoryTestRanking.username}">회원명</p>
+                <p th:text="${memoryTestRanking.email}">회원이메일</p>
+                <p th:text="${memoryTestRanking.level}">레벨</p>
+                <p th:text="${memoryTestRanking.gameScore}">점수</p>
             </li>
         </ul>
     </div>

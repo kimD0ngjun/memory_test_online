@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.RedisHash;
 @AllArgsConstructor
 @NoArgsConstructor
 @RedisHash(value = "ranking")
-public class Ranking {
+public class MemoryTestRanking {
     @Id
     private String email;
     private String username;
@@ -20,7 +20,7 @@ public class Ranking {
 
     private static final int MULTIPLE = 1_000_000;
 
-    public Ranking(String email, String username, int level, int gameScore) {
+    public MemoryTestRanking(String email, String username, int level, int gameScore) {
         this.email = email;
         this.username = username;
         this.level = level;

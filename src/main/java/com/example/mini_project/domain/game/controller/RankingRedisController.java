@@ -2,7 +2,7 @@ package com.example.mini_project.domain.game.controller;
 
 import com.example.mini_project.domain.game.dto.RankingRequestDto;
 import com.example.mini_project.domain.game.dto.RankingResponseDto;
-import com.example.mini_project.domain.game.service.RankingRedisService;
+import com.example.mini_project.domain.game.service.MemoryTestRankingRedisService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import com.example.mini_project.global.dto.ApiMessageDto;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/mini/game")
 public class RankingRedisController {
 
-    private final RankingRedisService rankingService;
+    private final MemoryTestRankingRedisService rankingService;
     private static final int TOP_RANKING = 10;
 
     @PostMapping("/ranking")

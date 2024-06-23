@@ -1,6 +1,5 @@
 package com.example.mini_project.domain.game.dto;
 
-import com.example.mini_project.domain.game.entity.Record;
 import com.example.mini_project.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

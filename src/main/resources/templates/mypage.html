@@ -40,21 +40,21 @@
     </div>
 </header>
 <div class="profile-container">
-    <span class="my-record-container">
+    <span class="my-memoryTestRecord-container">
         <div id="recordTitle">MY RECORD BOARD</div>
         <ul id="recordList">
-            <li class="record-explain">
+            <li class="memoryTestRecord-explain">
                 <p>단계</p>
                 <p>점수</p>
                 <p>날짜</p>
                 <p>삭제</p>
             </li>
-            <li class="record" th:each="record: ${records}">
-                <p th:text="${record.level}">단계</p>
-                <p th:text="${record.gameScore}">점수</p>
-                <p class="date" th:text="${record.registration}">날짜</p>
+            <li class="memoryTestRecord" th:each="memoryTestRecord: ${records}">
+                <p th:text="${memoryTestRecord.level}">단계</p>
+                <p th:text="${memoryTestRecord.gameScore}">점수</p>
+                <p class="date" th:text="${memoryTestRecord.registration}">날짜</p>
                 <p class="deleteButton" >X</p>
-                <p class="hidden" th:text="${record.id}"></p>
+                <p class="hidden" th:text="${memoryTestRecord.id}"></p>
             </li>
         </ul>
     </span>

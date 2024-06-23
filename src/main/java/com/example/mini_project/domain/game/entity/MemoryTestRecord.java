@@ -7,10 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "records")
-public class Record extends RecordTimeStamped {
+public class MemoryTestRecord extends RecordTimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +31,7 @@ public class Record extends RecordTimeStamped {
     @Column(name = "score", nullable = false)
     private int gameScore;
 
-    public Record(User user, RankingRequestDto rankingRequestDto) {
+    public MemoryTestRecord(User user, RankingRequestDto rankingRequestDto) {
         this.user = user;
         this.level = rankingRequestDto.getLevel();
         this.gameScore = rankingRequestDto.getGameScore();

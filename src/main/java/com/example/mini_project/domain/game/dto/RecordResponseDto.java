@@ -1,6 +1,6 @@
 package com.example.mini_project.domain.game.dto;
 
-import com.example.mini_project.domain.game.entity.Record;
+import com.example.mini_project.domain.game.entity.MemoryTestRecord;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +14,12 @@ public class RecordResponseDto {
     private int gameScore;
     private String registration;
 
-    public RecordResponseDto(Record record) {
-        this.id = record.getId();
-        this.level = record.getLevel();
-        this.gameScore = record.getGameScore();
+    public RecordResponseDto(MemoryTestRecord memoryTestRecord) {
+        this.id = memoryTestRecord.getId();
+        this.level = memoryTestRecord.getLevel();
+        this.gameScore = memoryTestRecord.getGameScore();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd - HH:mm:ss");
-        this.registration = record.getCreatedAt().format(formatter);
+        this.registration = memoryTestRecord.getCreatedAt().format(formatter);
     }
 }
