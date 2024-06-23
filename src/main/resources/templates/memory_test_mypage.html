@@ -11,6 +11,7 @@
 <header class="explain-container">
     <div id="logo" class="header-item">
         <img id="logo-img" src="/css/MemoryTestLogo.svg" alt="logo" />
+        <p id="clickLogo">로고를 클릭하면 게임 선택 페이지로 돌아갑니다</p>
     </div>
     <div>
         <div id="myProfile" class="header-item">
@@ -138,6 +139,10 @@
 
     document.querySelector('#my-page-btn').addEventListener('click', () => {
         window.location.href = "/memory_test";  // 루트 경로로 라우팅
+    });
+
+    document.querySelector('#logo-img').addEventListener('click', () => {
+        window.location.href = "/games";  // 루트 경로로 라우팅
     });
 </script>
 </body>

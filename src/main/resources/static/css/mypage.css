@@ -51,6 +51,59 @@ body{
     height: 15%;
 }
 
+#logo-img {
+    width: 15rem;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        cursor: grab;
+        transform: scale(1);
+    }
+}
+
+#clickLogo {
+    text-align: center;
+    margin-top: 1rem;
+    animation: pulsate 4s 4s 1.5;
+    font-size: 0.8rem;
+    color: #777777;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    12.5% {
+        transform: scale(1.1);
+    }
+    25% {
+        transform: scale(1);
+    }
+    37.5% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    62.5% {
+        transform: scale(1.1);
+    }
+    75% {
+        transform: scale(1);
+    }
+    87.5% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 #myProfile {
     display: flex;
     flex-direction: row;
@@ -295,7 +348,7 @@ body{
 }
 
 #util-btn button {
-    background-color: #ffb02e;
+    background-color: #3b73e8;
     color: #fff;
     font-size: 14px;
     /* padding: 10px 45px; */
@@ -310,13 +363,13 @@ body{
 }
 
 #util-btn button:hover {
-    background-color: #ffa500;
+    background-color: #2d5acc;
     transform: scale(1.05);
     cursor: pointer;
 }
 
 #util-btn button:active {
-    background-color: #ff8c00;
+    background-color: #2b57c7;
     transform: scale(0.95);
     cursor: grabbing;
 }
@@ -353,7 +406,7 @@ body{
 }
 
 #name-button {
-    background-color: #ffb02e;
+    background-color: #3b73e8;
     color: #fff;
     font-size: 15px;
     padding: 10px 45px;
@@ -367,13 +420,13 @@ body{
 }
 
 #name-button:hover {
-    background-color: #ffa500;
+    background-color: #2d5acc;
     transform: scale(1.05);
     cursor: pointer;
 }
 
 #name-button:active {
-    background-color: #ff8c00;
+    background-color: #2b57c7;
     transform: scale(0.95);
     cursor: grabbing;
 }
