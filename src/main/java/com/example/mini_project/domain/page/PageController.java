@@ -3,7 +3,7 @@ package com.example.mini_project.domain.page;
 import com.example.mini_project.domain.game.common.dto.ProfileResponseDto;
 import com.example.mini_project.domain.game.common.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
-import com.example.mini_project.domain.game.memory.service.MemoryTestRankingRedisService;
+import com.example.mini_project.domain.game.common.service.RankingRedisService;
 import com.example.mini_project.domain.game.memory.service.MemoryTestService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 public class PageController {
 
-    private final MemoryTestRankingRedisService rankingService;
+    private final RankingRedisService rankingService;
     private final MemoryTestService memoryTestService;
     private static final int TOP_RANKING = 10;
 
