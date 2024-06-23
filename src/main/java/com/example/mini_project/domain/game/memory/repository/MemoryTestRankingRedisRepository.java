@@ -19,7 +19,7 @@ public class MemoryTestRankingRedisRepository {
     private final RedisTemplate<String, MemoryTestRanking> redisTemplate;
     private ZSetOperations<String, MemoryTestRanking> zSetOperations;
 
-    @Value("${custom.redis.ranking.key}")
+    @Value("${custom.redis.memory.key}")
     private String rankingKey;
 
     @PostConstruct
