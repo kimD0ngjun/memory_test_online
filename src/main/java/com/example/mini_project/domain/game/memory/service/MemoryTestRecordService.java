@@ -2,6 +2,7 @@ package com.example.mini_project.domain.game.memory.service;
 
 import com.example.mini_project.domain.game.common.dto.RankingRequestDto;
 import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
+import com.example.mini_project.domain.game.common.service.RecordService;
 import com.example.mini_project.domain.game.memory.entity.MemoryTestRecord;
 import com.example.mini_project.domain.game.memory.repository.MemoryTestRecordRepository;
 import com.example.mini_project.domain.user.entity.User;
@@ -17,7 +18,7 @@ import java.util.List;
 @Transactional
 @Slf4j
 @RequiredArgsConstructor
-public class MemoryTestServiceImpl implements MemoryTestService {
+public class MemoryTestRecordService implements RecordService {
 
     private final MemoryTestRecordRepository memoryTestRecordRepository;
 

@@ -4,7 +4,7 @@ import com.example.mini_project.domain.game.common.dto.ProfileResponseDto;
 import com.example.mini_project.domain.game.common.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
 import com.example.mini_project.domain.game.common.service.RankingRedisService;
-import com.example.mini_project.domain.game.memory.service.MemoryTestService;
+import com.example.mini_project.domain.game.common.service.RecordService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.List;
 public class PageController {
 
     private final RankingRedisService rankingService;
-    private final MemoryTestService memoryTestService;
+    private final RecordService recordService;
     private static final int TOP_RANKING = 10;
 
     @GetMapping
@@ -50,7 +50,7 @@ public class PageController {
             @AuthenticationPrincipal UserDetailsImpl userDetails
             ) {
         User user = userDetails.getUser();
-        List<RecordResponseDto> records = memoryTestService.getRecords(user);
+        List<RecordResponseDto> records = recordService.getRecords(user);
         ProfileResponseDto profile = new ProfileResponseDto(user, records);
 
         model.addAttribute("profile", profile);
