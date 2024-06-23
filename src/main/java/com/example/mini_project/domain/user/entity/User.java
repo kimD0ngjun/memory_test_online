@@ -1,6 +1,6 @@
 package com.example.mini_project.domain.user.entity;
 
-import com.example.mini_project.domain.game.entity.MemoryTestRecord;
+import com.example.mini_project.domain.game.memory.entity.MemoryTestRecord;
 import com.example.mini_project.domain.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

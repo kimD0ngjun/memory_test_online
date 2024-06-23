@@ -1,7 +1,7 @@
-package com.example.mini_project.domain.game.service;
+package com.example.mini_project.domain.game.memory.service;
 
-import com.example.mini_project.domain.game.dto.RankingRequestDto;
-import com.example.mini_project.domain.game.dto.RecordResponseDto;
+import com.example.mini_project.domain.game.common.dto.RankingRequestDto;
+import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
 import com.example.mini_project.domain.user.entity.User;
 
 import java.util.List;

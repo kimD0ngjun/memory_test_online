@@ -1,6 +1,6 @@
-package com.example.mini_project.domain.game.dto;
+package com.example.mini_project.domain.game.common.dto;
 
-import com.example.mini_project.domain.game.entity.MemoryTestRecord;
+import com.example.mini_project.domain.game.memory.entity.MemoryTestRecord;
 import lombok.Getter;
 import lombok.Setter;
 

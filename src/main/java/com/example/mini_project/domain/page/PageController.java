@@ -1,10 +1,10 @@
 package com.example.mini_project.domain.page;
 
-import com.example.mini_project.domain.game.dto.ProfileResponseDto;
-import com.example.mini_project.domain.game.dto.RankingResponseDto;
-import com.example.mini_project.domain.game.dto.RecordResponseDto;
-import com.example.mini_project.domain.game.service.MemoryTestRankingRedisService;
-import com.example.mini_project.domain.game.service.MemoryTestService;
+import com.example.mini_project.domain.game.common.dto.ProfileResponseDto;
+import com.example.mini_project.domain.game.common.dto.RankingResponseDto;
+import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
+import com.example.mini_project.domain.game.memory.service.MemoryTestRankingRedisService;
+import com.example.mini_project.domain.game.memory.service.MemoryTestService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;

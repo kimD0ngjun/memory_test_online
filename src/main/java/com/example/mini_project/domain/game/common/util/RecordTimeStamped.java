@@ -1,4 +1,4 @@
-package com.example.mini_project.domain.game.entity;
+package com.example.mini_project.domain.game.common.util;
 
 import jakarta.persistence.*;
 import lombok.Getter;

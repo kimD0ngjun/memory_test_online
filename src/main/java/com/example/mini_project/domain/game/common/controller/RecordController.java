@@ -1,8 +1,8 @@
-package com.example.mini_project.domain.game.controller;
+package com.example.mini_project.domain.game.common.controller;
 
-import com.example.mini_project.domain.game.dto.RankingRequestDto;
-import com.example.mini_project.domain.game.dto.RecordResponseDto;
-import com.example.mini_project.domain.game.service.MemoryTestService;
+import com.example.mini_project.domain.game.common.dto.RankingRequestDto;
+import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
+import com.example.mini_project.domain.game.memory.service.MemoryTestService;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import com.example.mini_project.global.dto.ApiMessageDto;
 import lombok.RequiredArgsConstructor;

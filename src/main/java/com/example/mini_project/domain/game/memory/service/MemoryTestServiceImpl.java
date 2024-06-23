@@ -1,9 +1,9 @@
-package com.example.mini_project.domain.game.service;
+package com.example.mini_project.domain.game.memory.service;
 
-import com.example.mini_project.domain.game.dto.RankingRequestDto;
-import com.example.mini_project.domain.game.dto.RecordResponseDto;
-import com.example.mini_project.domain.game.entity.MemoryTestRecord;
-import com.example.mini_project.domain.game.repository.MemoryTestRecordRepository;
+import com.example.mini_project.domain.game.common.dto.RankingRequestDto;
+import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
+import com.example.mini_project.domain.game.memory.entity.MemoryTestRecord;
+import com.example.mini_project.domain.game.memory.repository.MemoryTestRecordRepository;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;

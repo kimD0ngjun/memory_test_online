@@ -1,6 +1,6 @@
-package com.example.mini_project.domain.game.repository;
+package com.example.mini_project.domain.game.memory.repository;
 
-import com.example.mini_project.domain.game.entity.MemoryTestRanking;
+import com.example.mini_project.domain.game.memory.entity.MemoryTestRanking;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

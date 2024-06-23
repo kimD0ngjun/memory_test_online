@@ -1,6 +1,7 @@
-package com.example.mini_project.domain.game.entity;
+package com.example.mini_project.domain.game.memory.entity;
 
-import com.example.mini_project.domain.game.dto.RankingRequestDto;
+import com.example.mini_project.domain.game.common.dto.RankingRequestDto;
+import com.example.mini_project.domain.game.common.util.RecordTimeStamped;
 import com.example.mini_project.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

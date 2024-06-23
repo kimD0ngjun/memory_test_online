@@ -1,8 +1,8 @@
-package com.example.mini_project.domain.game.service;
+package com.example.mini_project.domain.game.memory.service;
 
-import com.example.mini_project.domain.game.dto.RankingResponseDto;
-import com.example.mini_project.domain.game.entity.MemoryTestRanking;
-import com.example.mini_project.domain.game.repository.MemoryTestRankingRedisRepository;
+import com.example.mini_project.domain.game.common.dto.RankingResponseDto;
+import com.example.mini_project.domain.game.memory.entity.MemoryTestRanking;
+import com.example.mini_project.domain.game.memory.repository.MemoryTestRankingRedisRepository;
 import com.example.mini_project.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

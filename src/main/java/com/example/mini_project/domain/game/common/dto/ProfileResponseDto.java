@@ -1,4 +1,4 @@
-package com.example.mini_project.domain.game.dto;
+package com.example.mini_project.domain.game.common.dto;
 
 import com.example.mini_project.domain.user.entity.User;
 import lombok.AllArgsConstructor;
