@@ -434,7 +434,7 @@ async function addRanking(stage, scoreCount) {
     };
 
     try {
-        const response = await fetch("/mini/game/ranking", {
+        const response = await fetch("/mini/memory_test/ranking", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
