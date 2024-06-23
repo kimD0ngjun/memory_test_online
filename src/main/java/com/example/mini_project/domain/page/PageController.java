@@ -56,8 +56,8 @@ public class PageController {
         return "snake_game";
     }
 
-    @GetMapping("/mypage")
-    public String getMyPage(
+    @GetMapping("/memory_test/mypage")
+    public String getMemoryTestMyPage(
             Model model,
             @AuthenticationPrincipal UserDetailsImpl userDetails
             ) {
@@ -71,7 +71,25 @@ public class PageController {
         log.info(profile.toString());
         log.info(records.toString());
 
-        return "mypage";
+        return "memory_test_mypage";
+    }
+
+    @GetMapping("/snake_game/mypage")
+    public String getSnakeGameMyPage(
+            Model model,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        User user = userDetails.getUser();
+        List<RecordResponseDto> records = snakeGameRecordService.getRecords(user);
+        ProfileResponseDto profile = new ProfileResponseDto(user, records);
+
+        model.addAttribute("profile", profile);
+        model.addAttribute("records", records);
+
+        log.info(profile.toString());
+        log.info(records.toString());
+
+        return "snake_game_mypage";
     }
 
     @GetMapping("/error")

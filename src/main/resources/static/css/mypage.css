@@ -105,7 +105,7 @@ body{
     height: 25rem;
 }
 
-#recordTitle {
+#recordTitle, #anotherRecordTitle {
     text-align: center;
     font-size: 1.1rem;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -113,13 +113,17 @@ body{
     margin-bottom: 0.5rem;
 }
 
-#recordList {
+#recordList, #anotherRecordList {
     list-style-type: none;
     padding: 0.1rem;
     overflow-y: auto;
 }
 
 #recordList:empty {
+    display: none;
+}
+
+#anotherRecordList:empty {
     display: none;
 }
 
@@ -227,7 +231,7 @@ body{
     height: 25rem;
 }
 
-#profileTitle {
+#profileTitle, #anotherProfileTitle {
     text-align: center;
     font-size: 1.1rem;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -235,7 +239,7 @@ body{
     margin-bottom: 0.5rem;
 }
 
-#profileList {
+#profileList, #anotherProfileList {
     border-radius: 30px;
     box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.5);
     list-style-type: circle;

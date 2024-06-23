@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface SnakeGameRecordRepository extends JpaRepository<SnakeGameRecord, Long> {
-    List<MemoryTestRecord> findByUser(User user);
+    List<SnakeGameRecord> findByUser(User user);
 }
