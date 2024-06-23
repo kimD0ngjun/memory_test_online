@@ -35,6 +35,11 @@ public class PageController {
         return "auth";
     }
 
+    @GetMapping("/games")
+    public String getGameSelectPage() {
+        return "games";
+    }
+
     @GetMapping("/memory_test")
     public String getMemoryTestPage(Model model) {
         List<RankingResponseDto> rankings = memoryTestRankingRedisService.getTopRankings(TOP_RANKING);
