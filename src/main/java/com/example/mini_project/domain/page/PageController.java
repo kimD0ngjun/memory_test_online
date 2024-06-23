@@ -3,8 +3,8 @@ package com.example.mini_project.domain.page;
 import com.example.mini_project.domain.game.common.dto.ProfileResponseDto;
 import com.example.mini_project.domain.game.common.dto.RankingResponseDto;
 import com.example.mini_project.domain.game.common.dto.RecordResponseDto;
-import com.example.mini_project.domain.game.common.service.RankingRedisService;
-import com.example.mini_project.domain.game.common.service.RecordService;
+import com.example.mini_project.domain.game.memory.service.MemoryTestRankingRedisService;
+import com.example.mini_project.domain.game.memory.service.MemoryTestRecordService;
 import com.example.mini_project.domain.user.entity.User;
 import com.example.mini_project.domain.user.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,8 @@ import java.util.List;
 @Slf4j
 public class PageController {
 
-    private final RankingRedisService rankingService;
-    private final RecordService recordService;
+    private final MemoryTestRankingRedisService memoryTestRankingRedisService;
+    private final MemoryTestRecordService memoryTestRecordService;
     private static final int TOP_RANKING = 10;
 
     @GetMapping
@@ -31,17 +31,12 @@ public class PageController {
         return "auth";
     }
 
-    @GetMapping("/tutorial")
-    public String getTutorialPage() {
-        return "tutorial";
-    }
-
-    @GetMapping("/game")
+    @GetMapping("/memory_test")
     public String getGamePage(Model model) {
-        List<RankingResponseDto> rankings = rankingService.getTopRankings(TOP_RANKING);
+        List<RankingResponseDto> rankings = memoryTestRankingRedisService.getTopRankings(TOP_RANKING);
         model.addAttribute("rankings", rankings);
 
-        return "game";
+        return "memory_test";
     }
 
     @GetMapping("/mypage")
@@ -50,7 +45,7 @@ public class PageController {
             @AuthenticationPrincipal UserDetailsImpl userDetails
             ) {
         User user = userDetails.getUser();
-        List<RecordResponseDto> records = recordService.getRecords(user);
+        List<RecordResponseDto> records = memoryTestRecordService.getRecords(user);
         ProfileResponseDto profile = new ProfileResponseDto(user, records);
 
         model.addAttribute("profile", profile);
