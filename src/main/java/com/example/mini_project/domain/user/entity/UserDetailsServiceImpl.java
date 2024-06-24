@@ -2,6 +2,7 @@ package com.example.mini_project.domain.user.entity;
 
 import com.example.mini_project.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService { // 얘의 �
 
     @Override
     // 아까 Authentication 인증 객체에 담을 Principal에 해당하는 UserDetails 생성
+    @Cacheable(value = "users", key = "#email", cacheManager = "redisCacheManager", unless = "#result == null")
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email) // 입력받은 이메일로 DB에서 유저 엔티티 조회
                 .orElseThrow(() -> new UsernameNotFoundException("Not Found " + email));
