@@ -36,11 +36,14 @@ public class User {
     @Column(name = "user_role", nullable = false)
     private UserRoleEnum role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemoryTestRecord> memoryTestRecords;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SnakeGameRecord> snakeGameRecords;
+    /**
+     * 캐싱 처리할 때 지연 로딩 이슈 계속 발생... 흠....
+    * */
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<MemoryTestRecord> memoryTestRecords;
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<SnakeGameRecord> snakeGameRecords;
 
     public User(String username, String email, String password, UserRoleEnum role) {
         this.username = username;

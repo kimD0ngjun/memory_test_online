@@ -1,5 +1,9 @@
 package com.example.mini_project.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,10 +14,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true) // 인식할 수 없는 필드를 무시하도록 설정
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
+
+    @JsonCreator
+    public UserDetailsImpl(@JsonProperty("user") User user) {
+        this.user = user;
+    }
 
     @Override
     public String getPassword() {
@@ -26,6 +36,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
+    @JsonIgnore // 권한은 런타임 때 동적으로 생성(굳이 역직렬화 불필요)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         UserRoleEnum userRoleEnum = user.getRole(); // 유저 권한(열거형 선언)을 UserAuthority 인스턴스에 담음
         String role = userRoleEnum.getRole(); // 그 권한들을 String 값으로 가져와서 문자열 저장
