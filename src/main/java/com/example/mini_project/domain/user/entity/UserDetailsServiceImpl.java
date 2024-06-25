@@ -18,7 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService { // 얘의 �
 
     @Override
     // 아까 Authentication 인증 객체에 담을 Principal에 해당하는 UserDetails 생성
-    @Cacheable(value = "users", key = "#email", cacheManager = "redisCacheManager", unless = "#result == null")
+    @Cacheable(
+            value = "cache",
+            key = "#email",
+            cacheManager = "redisCacheManager",
+            unless = "#result == null")
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info("캐시 적용이 안 될 때 호출될 이메일: {}", email);
 
