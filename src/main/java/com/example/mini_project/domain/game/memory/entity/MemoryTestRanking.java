@@ -35,20 +35,23 @@ public class MemoryTestRanking {
     }
 
 //    @Override
-//    // ZSet의 첫 번째 동등성 비교 기준
+//    // ZSet의 두 번째 동등성 비교 기준(얘 입장에서 새로 추가되는 객체니까?)
 //    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true; // 같은 객체면 참
-//        }
+////        if (this == obj) {
+////            return true; // 같은 객체면 참
+////        }
 //
 //        if (obj == null || getClass() != obj.getClass()) {
 //            return false; // obj 값이 null 혹은 클래스 타입 불일치 판별
 //        }
 //
 //        MemoryTestRanking that = (MemoryTestRanking) obj; // 명시적 형변
-//        return Objects.equals(email, that.email); // email 필드로 동일 여부 확인(ZSet의 첫 번째 동등성 비교 기준)
+//
+//        // 이메일이 같음과 동시에 새로 추가된 객체의 점수가 비교 대상의 점수보다 높으면 참
+//        return that.getEmail().equals(email) && score > that.getScore();
 //    }
 //
+//    // 첫 번째 객체 동등 여부
 //    @Override
 //    public int hashCode() {
 //        return Objects.hash(email);
