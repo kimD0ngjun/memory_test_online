@@ -133,7 +133,7 @@ async function resetGame() {
         await addScore(stage, scoreCount)
 
         // 2. 랭킹 등재여부 분기
-        let ranking = confirm(`최종 클리어 : ${stage - 1} 단계\n총합 스코어 : ${scoreCount}\n\n기록을 랭킹에 등재하시겠습니까?`);
+        let ranking = confirm(`최종 클리어 : ${stage - 1} 단계\n총합 스코어 : ${scoreCount}\n\n기록을 랭킹에 등재하시겠습니까?\n(기존 기록이 이미 랭킹에 등재된 경우, 가장 높은 레벨, 점수 합산 기록만이 등재됩니다)`);
 
         if (ranking) {
             await addRanking(stage, scoreCount);
