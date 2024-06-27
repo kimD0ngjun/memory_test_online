@@ -25,7 +25,7 @@ public class MemoryTestRankingRedisRepository {
     private String rankingKey;
 
     // 탑 10까지 뽑기 위해 상위 10명의 기록을 레디스에서 갖고 오기 위한 임의의 기준 큰 수
-    private static final int STANDARD = 1_000;
+    private static final int STANDARD = 10_000;
 
     @PostConstruct
     private void init() {
