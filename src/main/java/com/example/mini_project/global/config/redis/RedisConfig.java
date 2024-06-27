@@ -55,22 +55,40 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, MemoryTestRanking> sortedSetRedisTemplate() {
-        RedisTemplate<String, MemoryTestRanking> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, String> sortedSetRedisTemplate() {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(MemoryTestRanking.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(String.class));
         return redisTemplate;
     }
 
     @Bean
-    public RedisTemplate<String, SnakeGameRanking> anotherSortedSetRedisTemplate() {
-        RedisTemplate<String, SnakeGameRanking> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, String> anotherSortedSetRedisTemplate() {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(SnakeGameRanking.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(String.class));
         return redisTemplate;
     }
+
+//    @Bean
+//    public RedisTemplate<String, MemoryTestRanking> sortedSetRedisTemplate() {
+//        RedisTemplate<String, MemoryTestRanking> redisTemplate = new RedisTemplate<>();
+//        redisTemplate.setConnectionFactory(redisConnectionFactory());
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(MemoryTestRanking.class));
+//        return redisTemplate;
+//    }
+//
+//    @Bean
+//    public RedisTemplate<String, SnakeGameRanking> anotherSortedSetRedisTemplate() {
+//        RedisTemplate<String, SnakeGameRanking> redisTemplate = new RedisTemplate<>();
+//        redisTemplate.setConnectionFactory(redisConnectionFactory());
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(SnakeGameRanking.class));
+//        return redisTemplate;
+//    }
 
     // redis 캐시 for 성능 향상 및 반복 랭킹 업데이트 처리
     @Bean
