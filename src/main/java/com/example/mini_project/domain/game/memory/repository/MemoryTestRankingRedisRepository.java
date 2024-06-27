@@ -3,6 +3,7 @@ package com.example.mini_project.domain.game.memory.repository;
 import com.example.mini_project.domain.game.memory.entity.MemoryTestRanking;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class MemoryTestRankingRedisRepository {
 
     private final RedisTemplate<String, MemoryTestRanking> redisTemplate;
@@ -21,6 +23,9 @@ public class MemoryTestRankingRedisRepository {
 
     @Value("${custom.redis.memory.key}")
     private String rankingKey;
+
+    // 탑 10까지 뽑기 위해 상위 10명의 기록을 레디스에서 갖고 오기 위한 임의의 기준 큰 수
+    private static final int STANDARD = 10_000;
 
     @PostConstruct
     private void init() {
@@ -40,13 +45,21 @@ public class MemoryTestRankingRedisRepository {
     }
 
     public List<MemoryTestRanking> getRankingRange(int start, int end) {
-        Set<MemoryTestRanking> memoryTestRankings = zSetOperations.reverseRange(rankingKey, start, end);
+        // 최대한 많이 들고 온 다음, 서버에서 10자리만큼 잘라내기
+        Set<MemoryTestRanking> memoryTestRankings = zSetOperations.reverseRange(rankingKey, start, STANDARD);
 
         if (memoryTestRankings == null || memoryTestRankings.isEmpty()) {
             return new ArrayList<>();
         }
 
-        return new ArrayList<>(memoryTestRankings);
+        List<MemoryTestRanking> list = new ArrayList<>(memoryTestRankings);
+        log.info("리스트(메모리테스트랭킹레포지토리): " + list);
+
+        if (list.size() < end + 1) {
+            return list;
+        }
+
+        return list.subList(start, end);
     }
 
     // delta 는 특정 값에 대해 증가 또는 감소할 양을 나타내는 변수

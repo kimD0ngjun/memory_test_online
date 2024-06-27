@@ -80,6 +80,7 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                deleteAllCookies();  // 모든 쿠키 삭제
                 alert("성공적으로 로그아웃됐습니다.")
                 window.location.href = "/"; // 루트 경로로 이동
             })
@@ -87,8 +88,6 @@
                 console.error('Error:', error);
                 alert("비정상적인 로그아웃 처리! 관리자에게 문의하세요.")
             });
-
-        deleteAllCookies();  // 모든 쿠키 삭제
     });
 
     // document.querySelector('#my-page-btn').addEventListener('click', () => {
