@@ -1,6 +1,5 @@
 package com.example.mini_project.domain.game.snake.repository;
 
-import com.example.mini_project.domain.game.memory.entity.MemoryTestRanking;
 import com.example.mini_project.domain.game.snake.entity.SnakeGameRanking;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +22,9 @@ public class SnakeGameRankingRedisRepository {
     @Value("${custom.redis.snake.key}")
     private String rankingKey;
 
+    // 탑 10까지 뽑기 위해 상위 10명의 기록을 레디스에서 갖고 오기 위한 임의의 기준 큰 수
+    private static final int STANDARD = 1_000;
+
     @PostConstruct
     private void init() {
         zSetOperations = redisTemplate.opsForZSet();
@@ -39,7 +41,14 @@ public class SnakeGameRankingRedisRepository {
             return new ArrayList<>();
         }
 
-        return new ArrayList<>(snakeGameRankings);
+        List<SnakeGameRanking> list = new ArrayList<>(snakeGameRankings);
+//        log.info("리스트(메모리테스트랭킹레포지토리): " + list);
+
+        if (list.size() < end + 1) {
+            return list;
+        }
+
+        return list.subList(start, end);
     }
 
     // delta 는 특정 값에 대해 증가 또는 감소할 양을 나타내는 변수
