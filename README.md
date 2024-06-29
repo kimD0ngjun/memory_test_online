@@ -34,9 +34,9 @@
 ## 개발일지
 
 
-<a src="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%EC%8B%9C%EC%9E%91-2024.5.22" target="_blank">2024.05.22 - 시작</a><br/>
-<a src="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%EC%8B%9C%EC%9E%91-2024.5.28" target="_blank">2024.05.28 - 인증(1)</a><br/>
-<a src="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%EC%9D%B8%EC%A6%9D2-2024.6.1" target="_blank">2024.06.01 - 인증(2)</a><br/>
-<a src="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%ED%95%84%ED%84%B0-2024.6.3" target="_blank">2024.06.03 - 필터</a><br/>
+<a href="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%EC%8B%9C%EC%9E%91-2024.5.22" target="_blank">2024.05.22 - 시작</a><br/>
+<a href="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%EC%8B%9C%EC%9E%91-2024.5.28" target="_blank">2024.05.28 - 인증(1)</a><br/>
+<a href="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%EC%9D%B8%EC%A6%9D2-2024.6.1" target="_blank">2024.06.01 - 인증(2)</a><br/>
+<a href="https://velog.io/@kim00ngjun_0112/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-%ED%95%84%ED%84%B0-2024.6.3" target="_blank">2024.06.03 - 필터</a><br/>
 
 ...계속 작성 중
